@@ -8,6 +8,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 
 using DynaCulture.Util;
+using TaleWorlds.ObjectSystem;
 
 namespace DynaCulture.Data
 {
