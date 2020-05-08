@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using ModLib;
-using ModLib.Attributes;
 using System.Xml.Serialization;
+
+using ModLib.Definitions;
+using ModLib.Definitions.Attributes;
 
 namespace DynaCulture
 {
@@ -15,23 +15,12 @@ namespace DynaCulture
         public override string ModName => "DynaCulture";
         public override string ModuleFolderName => SubModule.ModuleFolderName;
         public const string SettingsInstanceID = "DynaCultureSettings";
-        static Settings _instance = null;
 
         public static Settings Instance
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = FileDatabase.Get<Settings>(SettingsInstanceID);
-                    if (_instance == null)
-                    {
-                        _instance = new Settings();
-                        SettingsDatabase.SaveSettings(_instance);
-                    }
-                }
-
-                return _instance;
+                return (Settings)SettingsDatabase.GetSettings<Settings>();
             }
         }
 

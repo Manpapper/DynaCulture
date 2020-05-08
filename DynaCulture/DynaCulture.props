@@ -10,6 +10,9 @@
 	
     <!-- Path to modlib-->
     <MODLIB>E:\Source\Dependencies\ModLib.dll</MODLIB>
+	
+    <!-- Path to modlib-->
+    <MODLIB_DEFS>E:\Source\Dependencies\ModLib.Definitions.dll</MODLIB_DEFS>
 
   </PropertyGroup>
 </Project>
