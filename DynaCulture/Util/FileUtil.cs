@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DynaCulture.Data;
 
 using System.IO;
+using TaleWorlds.CampaignSystem;
 
 namespace DynaCulture.Util
 {
@@ -31,12 +32,12 @@ namespace DynaCulture.Util
             return default;
         }
 
-        public static void SaveSerializedFile(string characterName, object o)
+        public static void SaveSerializedFile(string characterName/*, DateTime initializeTime*/, object o)
         {
             try
             {
                 string path = GetConfigDirectory();
-                string filename = GetSerializedFileName(characterName);
+                string filename = GetSerializedFileName(characterName/*, initializeTime*/);
 
                 Serializator.Serialize(Path.Combine(path, filename), o);
             }
@@ -86,9 +87,9 @@ namespace DynaCulture.Util
             return $@"C:\Users\{Environment.UserName}\Documents\Mount and Blade II Bannerlord\Configs\DynaCulture\";
         }
 
-        public static string GetSerializedFileName(string characterName)
+        public static string GetSerializedFileName(string characterName/*, DateTime initializeTime*/)
         {
-            return characterName + "_CultureConfig.dat";
+            return characterName /*+ "_" + initializeTime.ToString("MMddyyyy-hhmm")*/ + "_CultureConfig.dat";
         }
     }
 }

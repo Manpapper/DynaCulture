@@ -9,6 +9,9 @@ using TaleWorlds.CampaignSystem.Actions;
 
 using DynaCulture.Util;
 using TaleWorlds.ObjectSystem;
+using System.Xml.Linq;
+using TaleWorlds.Core;
+using System.Windows.Forms;
 
 namespace DynaCulture.Data
 {
@@ -50,14 +53,18 @@ namespace DynaCulture.Data
 
         void initializeAllSettlementCultures()
         {
-            if (!DynaCultureManager.Instance.InfluenceMap.Any())
+            // Add resilience against new settments being added mid-campaign
+            foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
             {
-                foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
+                if (!DynaCultureManager.Instance.InfluenceMap.ContainsKey(settlement.StringId))
                     DynaCultureManager.Instance.InfluenceMap.Add(settlement.StringId, new DynaCultureStatus(settlement));
             }
 
+            // Allow each settlement to initialize itself only after assuring all settments have culture statuses
             foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
+            {
                 DynaCultureManager.Instance.InfluenceMap[settlement.StringId].OnCampaignLoad();
+            }
 
             first = false;
         }
@@ -174,7 +181,7 @@ namespace DynaCulture.Data
         /// </summary>
         public void OnSave()
         {
-            FileUtil.SaveSerializedFile(Hero.MainHero.Name.ToString(), DynaCultureManager.Instance);
+            FileUtil.SaveSerializedFile(Hero.MainHero.Name.ToString()/*, DynaCultureManager.Instance.InitializeTime*/, DynaCultureManager.Instance);
         }
     }
 }

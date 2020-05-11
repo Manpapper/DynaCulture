@@ -12,19 +12,25 @@ namespace DynaCulture.Util
     {
         public static void ChangeSettlementCulture(Settlement settlement, CultureObject culture)
         {
-            var editableSettlement = Campaign.Current.Settlements.Where(x => x.StringId == settlement.StringId).FirstOrDefault();
-            editableSettlement.Culture = culture;
+            // Do not convert the last remaining town of a culture. Companions need a place to spawn or there will be crashes
+            if (settlement.IsTown)
+            {
+                var remainingTowns = Campaign.Current.Settlements.Where(s => s.Culture == settlement.Culture).Count();
+                if (remainingTowns == 1)
+                    return;
+            }
+
+            settlement.Culture = culture;
 
             // Attempt to set attached villages
-            if (editableSettlement.BoundVillages != null)
+            if (settlement.BoundVillages != null)
             {
-                foreach (Village attached in editableSettlement.BoundVillages)
+                foreach (Village attached in settlement.BoundVillages)
                 {
                     if (attached.Settlement == null)
                         continue;
 
-                    var editableBound = Campaign.Current.Settlements.Where(x => x.StringId == attached.Settlement.StringId).FirstOrDefault();
-                    editableBound.Culture = culture;
+                    attached.Settlement.Culture = culture;
                 }
             }
         }

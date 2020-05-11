@@ -20,7 +20,19 @@ namespace DynaCulture.Data
         const int BASE_INFLUENCE = 1;
 
         [field: NonSerialized]
-        static Dictionary<string, CultureObject> cachedCultures = new Dictionary<string, CultureObject>();
+        static Dictionary<string, CultureObject> _cachedCultures = new Dictionary<string, CultureObject>();
+
+        //[field: NonSerialized]
+        static Dictionary<string, CultureObject> CachedCultures
+        {
+            get
+            {
+                if (_cachedCultures.Count == 0)
+                    initializeCultures();
+
+                return _cachedCultures;
+            }
+        }
 
         // Serialized fields
         internal string homelandCultureId;
@@ -240,12 +252,12 @@ namespace DynaCulture.Data
         /// <summary>
         /// Initializes the culture cache
         /// </summary>
-        void initializeCultures()
+        static void initializeCultures()
         {
             foreach (var culture in Campaign.Current.Kingdoms.Where(x => x.IsKingdomFaction && x.Culture != null).Select(x => x.Culture).Distinct())
             {
-                if (!cachedCultures.ContainsKey(culture.StringId))
-                    cachedCultures.Add(culture.StringId, culture);
+                if (!_cachedCultures.ContainsKey(culture.StringId))
+                    _cachedCultures.Add(culture.StringId, culture);
             }
         }
 
@@ -255,9 +267,6 @@ namespace DynaCulture.Data
         /// <returns></returns>
         CultureObject getTopCulture()
         {
-            if (!cachedCultures.Any())
-                initializeCultures();
-
             var top = CurrentInfluences.OrderByDescending(x => x.Value).First();
 
             // Settle ties...
@@ -272,10 +281,7 @@ namespace DynaCulture.Data
                     top = tied.OrderBy(x => x.Key).First();
             }
 
-            if (!cachedCultures.Any())
-                initializeCultures();
-
-            var topCulture = cachedCultures[top.Key];
+            var topCulture = CachedCultures[top.Key];
 
             return topCulture;
         }

@@ -38,6 +38,7 @@ namespace DynaCulture.Data
             _instance = null;
         }
 
+        //public DateTime InitializeTime;
         public Dictionary<string, DynaCultureStatus> InfluenceMap = new Dictionary<string, DynaCultureStatus>();
     }
 }
