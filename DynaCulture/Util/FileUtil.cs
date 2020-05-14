@@ -18,6 +18,10 @@ namespace DynaCulture.Util
             try
             {
                 string path = GetConfigDirectory();
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
                 string filename = GetSerializedFileName(characterName);
 
                 if (File.Exists(Path.Combine(path, filename)))
@@ -37,6 +41,10 @@ namespace DynaCulture.Util
             try
             {
                 string path = GetConfigDirectory();
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
                 string filename = GetSerializedFileName(characterName/*, initializeTime*/);
 
                 Serializator.Serialize(Path.Combine(path, filename), o);
