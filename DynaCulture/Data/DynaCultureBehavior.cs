@@ -32,6 +32,7 @@ namespace DynaCulture.Data
             CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener((object)this, new Action<Settlement, bool, Hero, Hero, Hero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail>(this.OnSettlementOwnerChangedMod));
             CampaignEvents.ClanChangedKingdom.AddNonSerializedListener((object)this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.OnClanChangedKingdomMod));
             CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener((object)this, new Action(this.OnSave));
+            CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener((object)this, new Action<MobileParty>(this.RemoveCorruptedTroops));
 
             //if (System.Diagnostics.Debugger.IsAttached)
             //CampaignEvents.SettlementEntered.AddNonSerializedListener((object)this, new Action<MobileParty, Settlement, Hero>(this.DebugCulture));
@@ -114,6 +115,25 @@ namespace DynaCulture.Data
             {
                 if (!Settings.Instance.PlayerKingdomOnly || (Settings.Instance.PlayerKingdomOnly && settlement.OwnerClan.Leader.IsHumanPlayerCharacter))
                     DynaCultureManager.Instance.InfluenceMap[settlement.StringId].OnNewOwner();
+            }
+        }
+
+        public void RemoveCorruptedTroops(MobileParty mobileParty)
+        {
+            IEnumerable<MobileParty> mobileParties = MobileParty.FindPartiesAroundPosition(mobileParty.Position2D, 20);
+
+            foreach(MobileParty mobileParty1 in mobileParties)
+            {
+                IEnumerable<CharacterObject> characterObjects = mobileParty1.MemberRoster.Troops;
+                characterObjects = characterObjects.Where( c => c.Age == 0f);
+
+                if(characterObjects.Count<CharacterObject>() != 0)
+                {
+                    foreach (CharacterObject troop in characterObjects)
+                    {
+                        mobileParty1.MemberRoster.RemoveTroop(troop, mobileParty1.MemberRoster.GetTroopCount(troop));
+                    }
+                }
             }
         }
 
