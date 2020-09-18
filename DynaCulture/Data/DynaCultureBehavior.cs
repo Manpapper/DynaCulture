@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.Localization;
+using TaleWorlds.Library;
 
 using DynaCulture.Util;
 using TaleWorlds.ObjectSystem;
@@ -32,7 +34,7 @@ namespace DynaCulture.Data
             CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener((object)this, new Action<Settlement, bool, Hero, Hero, Hero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail>(this.OnSettlementOwnerChangedMod));
             CampaignEvents.ClanChangedKingdom.AddNonSerializedListener((object)this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.OnClanChangedKingdomMod));
             CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener((object)this, new Action(this.OnSave));
-            CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener((object)this, new Action<MobileParty>(this.RemoveCorruptedTroops));
+            CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener((object)this, new Action<MobileParty>(this.RemoveCorruptedTroops));
 
             //if (System.Diagnostics.Debugger.IsAttached)
             //CampaignEvents.SettlementEntered.AddNonSerializedListener((object)this, new Action<MobileParty, Settlement, Hero>(this.DebugCulture));
@@ -120,20 +122,18 @@ namespace DynaCulture.Data
 
         public void RemoveCorruptedTroops(MobileParty mobileParty)
         {
-            IEnumerable<MobileParty> mobileParties = MobileParty.FindPartiesAroundPosition(mobileParty.Position2D, 20);
+            // search for corrupted troops
+            IEnumerable<CharacterObject> characterObjects = mobileParty.MemberRoster.Troops.Where(c => c.Age == 0f);
 
-            foreach(MobileParty mobileParty1 in mobileParties)
+            if(characterObjects.Any())
             {
-                IEnumerable<CharacterObject> characterObjects = mobileParty1.MemberRoster.Troops;
-                characterObjects = characterObjects.Where( c => c.Age == 0f);
+                // delete them
+                foreach (CharacterObject troop in characterObjects)
+                    mobileParty.MemberRoster.RemoveTroop(troop, mobileParty.MemberRoster.GetTroopCount(troop));
 
-                if(characterObjects.Count<CharacterObject>() != 0)
-                {
-                    foreach (CharacterObject troop in characterObjects)
-                    {
-                        mobileParty1.MemberRoster.RemoveTroop(troop, mobileParty1.MemberRoster.GetTroopCount(troop));
-                    }
-                }
+                // report to user
+                if (Settings.Instance.ShowCorruptedTroopMessage)
+                    InformationManager.DisplayMessage(new InformationMessage(new TextObject($"Corrupted troops were removed from {mobileParty.Name} party.", (Dictionary<string, TextObject>)null).ToString(), Colors.Yellow));
             }
         }
 

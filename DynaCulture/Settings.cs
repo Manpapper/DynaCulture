@@ -53,6 +53,10 @@ namespace DynaCulture
         [SettingProperty("Assimilate Player Kingdom Only", "(Default false) Only the Player's kingdom's settlements will change culture")]
         public bool PlayerKingdomOnly { get; set; } = false;
 
+        [XmlElement]
+        [SettingProperty("Show Corrupted Troop Message", "(Default true) Toggle the corrupted troops removal message")]
+        public bool ShowCorruptedTroopMessage { get; set; } = true;
+
         //[XmlElement]
         //[SettingProperty("Debug Mode", "(Default false) Output Debug Information to desktop. Warning: probably causes problems")]
         //public bool DebugMode { get; set; } = false;
