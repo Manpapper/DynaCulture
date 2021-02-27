@@ -34,7 +34,7 @@ namespace DynaCulture.Data
             CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener((object)this, new Action<Settlement, bool, Hero, Hero, Hero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail>(this.OnSettlementOwnerChangedMod));
             CampaignEvents.ClanChangedKingdom.AddNonSerializedListener((object)this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.OnClanChangedKingdomMod));
             CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener((object)this, new Action(this.OnSave));
-            CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener((object)this, new Action<MobileParty>(this.RemoveCorruptedTroops));
+            //CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener((object)this, new Action<MobileParty>(this.RemoveCorruptedTroops));
 
             //if (System.Diagnostics.Debugger.IsAttached)
             //CampaignEvents.SettlementEntered.AddNonSerializedListener((object)this, new Action<MobileParty, Settlement, Hero>(this.DebugCulture));
@@ -119,7 +119,7 @@ namespace DynaCulture.Data
                     DynaCultureManager.Instance.InfluenceMap[settlement.StringId].OnNewOwner();
             }
         }
-
+        /*
         public void RemoveCorruptedTroops(MobileParty mobileParty)
         {
             // search for corrupted troops
@@ -136,7 +136,7 @@ namespace DynaCulture.Data
                     InformationManager.DisplayMessage(new InformationMessage(new TextObject($"Corrupted troops were removed from {mobileParty.Name} party.", (Dictionary<string, TextObject>)null).ToString(), Colors.Yellow));
             }
         }
-
+        */
         //public void DebugCulture(MobileParty party, Settlement settlement, Hero hero)
         //{
         //    try
