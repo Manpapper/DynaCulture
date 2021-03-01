@@ -35,6 +35,7 @@ namespace DynaCulture.Data
             CampaignEvents.ClanChangedKingdom.AddNonSerializedListener((object)this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.OnClanChangedKingdomMod));
             CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener((object)this, new Action(this.OnSave));
             CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener((object)this, new Action<MobileParty>(this.RemoveCorruptedTroops));
+            CampaignEvents.HourlyTickSettlementEvent.AddNonSerializedListener((object)this, new Action<Settlement>(this.RemoveCorruptedRecruits));
 
             //if (System.Diagnostics.Debugger.IsAttached)
             //CampaignEvents.SettlementEntered.AddNonSerializedListener((object)this, new Action<MobileParty, Settlement, Hero>(this.DebugCulture));
@@ -129,13 +130,15 @@ namespace DynaCulture.Data
 
                 // search for corrupted troops in the internal member "data" of MobileParty
                 TroopRosterElement[] troops = (TroopRosterElement[])mobileParty.MemberRoster.GetType().GetField("data", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(mobileParty.MemberRoster);
-                var characterObjects = troops.Where(t => t.Character?.Age == 0).Select(t => t.Character);
+                var characterObjects = troops.Where(t => t.Number > 0 && t.Character?.Age == 0f).Select(t => t.Character);
 
                 if (characterObjects.Any())
                 {
                     // delete them
                     foreach (CharacterObject troop in characterObjects)
+                    {
                         mobileParty.MemberRoster.RemoveTroop(troop, mobileParty.MemberRoster.GetTroopCount(troop));
+                    }
 
                     // report to user
                     if (Settings.Instance.ShowCorruptedTroopMessage)
@@ -145,6 +148,33 @@ namespace DynaCulture.Data
             catch
             {
                 InformationManager.DisplayMessage(new InformationMessage(new TextObject($"(DynaCulture) Error attempting to cleanse corrupted troops from {mobileParty.Name} party.", (Dictionary<string, object>)null).ToString(), Colors.Yellow));
+            }
+        }
+
+        public void RemoveCorruptedRecruits(Settlement settlement)
+        {
+            try
+            {
+                foreach (var notable in settlement.Notables.Where(n => n.CanHaveRecruits))
+                {
+                    bool removed = false;
+                    for (int x = 0; x < Hero.MaximumNumberOfVolunteers; x++)
+                    {
+                        var recruit = notable.VolunteerTypes[x];
+                        if (recruit != null && recruit.Age == 0f)
+                        {
+                            notable.VolunteerTypes[x] = null;
+                            removed = true;
+                        }
+                    }
+
+                    if (removed && Settings.Instance.ShowCorruptedTroopMessage)
+                        InformationManager.DisplayMessage(new InformationMessage(new TextObject($"(DynaCulture) Corrupted recruits were removed from {settlement.Name}.", (Dictionary<string, object>)null).ToString(), Colors.Yellow));
+                }
+            }
+            catch
+            {
+                InformationManager.DisplayMessage(new InformationMessage(new TextObject($"(DynaCulture) Error attempting to remove corrupted recruits from {settlement.Name}.", (Dictionary<string, object>)null).ToString(), Colors.Yellow));
             }
         }
 
