@@ -71,6 +71,14 @@ namespace DynaCulture.Data
             }
 
             first = false;
+
+            // clean up corrupted troops from previous sessions, if they exist
+            foreach (var party in Campaign.Current.MobileParties)
+                RemoveCorruptedTroops(party);
+
+            // clean up corrupted recruits from previous sessions, if they exist
+            foreach (var settlement in Campaign.Current.Settlements)
+                RemoveCorruptedRecruits(settlement);
         }
 
         public void DailyTickSettlementMod(Settlement settlement)
@@ -128,9 +136,9 @@ namespace DynaCulture.Data
                 if (mobileParty.MemberRoster.Count == 0)
                     return;
 
-                // search for corrupted troops in the internal member "data" of MobileParty
+                // search for corrupted troops in the internal member "data" of TroopRoster
                 TroopRosterElement[] troops = (TroopRosterElement[])mobileParty.MemberRoster.GetType().GetField("data", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(mobileParty.MemberRoster);
-                var characterObjects = troops.Where(t => t.Number > 0 && t.Character?.Age == 0f).Select(t => t.Character);
+                var characterObjects = troops.Where(t => t.Number > 0 && t.Character?.Age == 0f).Select(t => t.Character).ToList();
 
                 if (characterObjects.Any())
                 {
@@ -155,9 +163,9 @@ namespace DynaCulture.Data
         {
             try
             {
+                bool removed = false;
                 foreach (var notable in settlement.Notables.Where(n => n.CanHaveRecruits))
                 {
-                    bool removed = false;
                     for (int x = 0; x < Hero.MaximumNumberOfVolunteers; x++)
                     {
                         var recruit = notable.VolunteerTypes[x];
@@ -167,10 +175,10 @@ namespace DynaCulture.Data
                             removed = true;
                         }
                     }
-
-                    if (removed && Settings.Instance.ShowCorruptedTroopMessage)
-                        InformationManager.DisplayMessage(new InformationMessage(new TextObject($"(DynaCulture) Corrupted recruits were removed from {settlement.Name}.", (Dictionary<string, object>)null).ToString(), Colors.Yellow));
                 }
+
+                if (removed && Settings.Instance.ShowCorruptedTroopMessage)
+                    InformationManager.DisplayMessage(new InformationMessage(new TextObject($"(DynaCulture) Corrupted recruits were removed from {settlement.Name}.", (Dictionary<string, object>)null).ToString(), Colors.Yellow));
             }
             catch
             {
