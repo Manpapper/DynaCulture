@@ -17,17 +17,7 @@ namespace DynaCulture.Util
         public static void Serialize(string pathOrFileName, object objToSerialise)
         {
             using (Stream stream = File.Open(pathOrFileName, FileMode.Create))
-            {
-                try
-                {
-                    _bin.Serialize(stream, objToSerialise);
-                }
-                catch (SerializationException e)
-                {
-                    Console.WriteLine("Failed to serialize. Reason: " + e.Message);
-                    throw;
-                }
-            }
+                _bin.Serialize(stream, objToSerialise);
         }
 
         public static T Deserialize<T>(string pathOrFileName)
@@ -35,17 +25,7 @@ namespace DynaCulture.Util
             T items;
 
             using (Stream stream = File.Open(pathOrFileName, FileMode.Open))
-            {
-                try
-                {
-                    items = (T)_bin.Deserialize(stream);
-                }
-                catch (SerializationException e)
-                {
-                    Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
-                    throw;
-                }
-            }
+                items = (T)_bin.Deserialize(stream);
 
             return items;
         }

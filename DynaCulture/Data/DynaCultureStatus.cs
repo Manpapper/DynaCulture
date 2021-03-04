@@ -20,14 +20,13 @@ namespace DynaCulture.Data
         const int BASE_INFLUENCE = 1;
 
         [field: NonSerialized]
-        static Dictionary<string, CultureObject> _cachedCultures = new Dictionary<string, CultureObject>();
+        static Dictionary<string, CultureObject> _cachedCultures;
 
-        //[field: NonSerialized]
         static Dictionary<string, CultureObject> CachedCultures
         {
             get
             {
-                if (_cachedCultures.Count == 0)
+                if (_cachedCultures == null || _cachedCultures.Count == 0)
                     initializeCultures();
 
                 return _cachedCultures;
@@ -54,14 +53,12 @@ namespace DynaCulture.Data
         /// </summary>
         public void OnCampaignLoad()
         {
+            _cachedCultures = new Dictionary<string, CultureObject>();
+
             // There was no current influence stored in the save file
             if (CurrentInfluences == null)
             {
                 Settlement settlement = Settlement.Find(settlementId);
-                //if (settlement.Name.ToString() == "Thractorae Castle")
-                //{
-                //    int u = 0;
-                //}
 
                 CurrentInfluences = new Dictionary<string, decimal>();
                 CurrentInfluences.Add(settlement.Culture.StringId, 1m);
@@ -81,12 +78,6 @@ namespace DynaCulture.Data
         public void OnDailyTick()
         {
             int influenceSum = RecalculateInfluencers(false);
-
-            Settlement settlementtst = Settlement.Find(settlementId);
-            //if (settlementtst.Name.ToString() == "Lochana Castle")
-            //{
-            //    int u = 0;
-            //}
 
             if (Settings.Instance.GradualAssimilation)
             {
@@ -143,14 +134,6 @@ namespace DynaCulture.Data
         }
 
         /// <summary>
-        /// No longer necessary to calculate influence immediately on ownership change
-        /// </summary>
-        public void OnNewOwner()
-        {
-            //RecalculateInfluencers();
-        }
-
-        /// <summary>
         /// Recalculate influence based on campaign circumstances and save it as "TargetInfluence"
         /// </summary>
         /// <param name="firstTimeSetup"></param>
@@ -158,10 +141,6 @@ namespace DynaCulture.Data
         public int RecalculateInfluencers(bool firstTimeSetup)
         {
             Settlement settlement = Settlement.Find(settlementId);
-            //if (settlement.Name.ToString() == "Syronea")
-            //{
-            //    int u = 0;
-            //}
 
             // foreach nearby settlement, sum up the influence of each culture type
             List<Settlement> influencingSettlements = new List<Settlement>();
@@ -228,7 +207,7 @@ namespace DynaCulture.Data
             }
 
             // clear out no longer influencing cultures
-            for (int x = 0; x < TargetInfluences.Count; x++)//foreach (var pair in TargetInfluences)
+            for (int x = 0; x < TargetInfluences.Count; x++)
             {
                 if (!influencers.Select(c => c.Key.StringId).Contains(TargetInfluences.ElementAt(x).Key))
                     TargetInfluences[TargetInfluences.ElementAt(x).Key] = 0m;
@@ -309,7 +288,6 @@ namespace DynaCulture.Data
         int getInfluenceFromSettlement(Settlement otherSettlement, Settlement thisSettlement, bool firstTimeSetup)
         {
             var otherCulture = DynaCultureUtils.GetOwnerCulture(otherSettlement);
-            //var thisCulture = DynaCultureUtils.GetOwnerCulture(thisSettlement);
 
             int influenceValue = BASE_INFLUENCE;
 
@@ -327,10 +305,6 @@ namespace DynaCulture.Data
             // Homeland bonus only applied for self influence
             if (otherCulture.StringId == homelandCultureId && otherSettlement.StringId == thisSettlement.StringId)
                 influenceValue *= 2;
-
-            // For first time setup
-            //if (firstTimeSetup && (otherSettlement.StringId == thisSettlement.StringId))
-            //    influenceValue *= 5;
 
             // Scale the influence based on the influence ratios of the other settlement. Skip on first time setup.
             if (!firstTimeSetup)

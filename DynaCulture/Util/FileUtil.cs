@@ -36,7 +36,7 @@ namespace DynaCulture.Util
             return default;
         }
 
-        public static void SaveSerializedFile(string characterName/*, DateTime initializeTime*/, object o)
+        public static void SaveSerializedFile(string characterName, object o)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace DynaCulture.Util
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                string filename = GetSerializedFileName(characterName/*, initializeTime*/);
+                string filename = GetSerializedFileName(characterName);
 
                 Serializator.Serialize(Path.Combine(path, filename), o);
             }
@@ -56,48 +56,14 @@ namespace DynaCulture.Util
             }
         }
 
-        //public static string TryLoadTextFile(string filename)
-        //{
-        //    try
-        //    {
-        //        string path = GetConfigDirectory();
-
-        //        if (File.Exists(Path.Combine(path, filename)))
-        //            return File.ReadAllText(Path.Combine(path, filename));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (System.Diagnostics.Debugger.IsAttached)
-        //            System.Windows.Forms.MessageBox.Show("Failed to load saved file: " + ex.Message);
-        //    }
-
-        //    return default;
-        //}
-
-        //public static void SaveFile(string characterName, string content)
-        //{
-        //    try
-        //    {
-        //        string path = GetConfigDirectory();
-        //        string filename = GetSerializedFileName(characterName);
-
-        //        File.WriteAllText(Path.Combine(path, filename), content);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (System.Diagnostics.Debugger.IsAttached)
-        //            System.Windows.Forms.MessageBox.Show("Failed to save file: " + ex.Message);
-        //    }
-        //}
-
         public static string GetConfigDirectory()
         {
             return $@"C:\Users\{Environment.UserName}\Documents\Mount and Blade II Bannerlord\Configs\DynaCulture\";
         }
 
-        public static string GetSerializedFileName(string characterName/*, DateTime initializeTime*/)
+        public static string GetSerializedFileName(string characterName)
         {
-            return characterName /*+ "_" + initializeTime.ToString("MMddyyyy-hhmm")*/ + "_CultureConfig.dat";
+            return characterName + "_CultureConfig.dat";
         }
     }
 }
