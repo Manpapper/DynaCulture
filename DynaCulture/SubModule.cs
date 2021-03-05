@@ -9,12 +9,21 @@ using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
 using DynaCulture.Data;
+using HarmonyLib;
 
 namespace DynaCulture
 {
     public class SubModule : MBSubModuleBase
     {
         public static readonly string ModuleFolderName = "DynaCulture";
+
+        protected override void OnSubModuleLoad()
+        {
+            Harmony.DEBUG = true;
+            Harmony harmony = new Harmony("com.bannerlordmods.Dynaculture_ShowInfluencesTooltip");
+            harmony.PatchAll();
+            base.OnSubModuleLoad();
+        }
 
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {

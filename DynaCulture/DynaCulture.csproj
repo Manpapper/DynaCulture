@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.Harmony\bin\Win64_Shipping_Client\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="TaleWorlds.MountAndBlade">
       <HintPath>$(MOUNT_AND_BLADE_DIR)bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll</HintPath>
@@ -84,10 +87,12 @@
     <Compile Include="Util\DynaCultureUtils.cs" />
     <Compile Include="Util\FileUtil.cs" />
     <Compile Include="Util\Serializator.cs" />
+    <Compile Include="View\UpdateTooltipPatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SubModule.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MOD_FOLDER)\bin\Win64_Shipping_Client\" />
