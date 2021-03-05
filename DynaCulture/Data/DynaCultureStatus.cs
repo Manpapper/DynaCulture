@@ -312,5 +312,15 @@ namespace DynaCulture.Data
 
             return influenceValue;
         }
+
+        public Dictionary<string, decimal> getInfluenceForSettlement()
+        {
+            return CurrentInfluences.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value); ;
+        }
+
+        public decimal getTargetInfluenceValueForSettlement(string culture)
+        {
+            return TargetInfluences.Where(x => x.Key == culture).OrderByDescending(x => x.Value).First().Value;
+        }
     }
 }
