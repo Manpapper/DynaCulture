@@ -19,9 +19,10 @@ namespace DynaCulture
 
         protected override void OnSubModuleLoad()
         {
-            Harmony.DEBUG = true;
-            Harmony harmony = new Harmony("com.bannerlordmods.Dynaculture_ShowInfluencesTooltip");
+            //Harmony.DEBUG = true;
+            Harmony harmony = new Harmony("mod.bannerlord.splintert");
             harmony.PatchAll();
+
             base.OnSubModuleLoad();
         }
 

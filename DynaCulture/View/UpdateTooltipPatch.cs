@@ -1,13 +1,15 @@
-﻿using HarmonyLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+
+using HarmonyLib;
+
 using DynaCulture.Data;
 
 namespace DynaCulture.View
@@ -22,7 +24,7 @@ namespace DynaCulture.View
             {
                 if (args.Length > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine(args[0].GetType());
+                    //System.Diagnostics.Debug.WriteLine(args[0].GetType());
                     if (args[0].GetType() == typeof(Settlement) && (Settlement)args[0] != null)
                     {
                         Settlement settlement = (Settlement) args[0];
@@ -30,7 +32,7 @@ namespace DynaCulture.View
                         if(settlement.IsCastle || settlement.IsTown || settlement.IsVillage)
                         {
                             string factionDefinitionLabel = "Faction";
-                            string troopTypesDefinitionLabel = "Troop Types";
+                            string troopTypesDefinitionLabel = "Troops";
 
                             int indexOfFaction = __instance.TooltipPropertyList.FindIndex(x => x.DefinitionLabel.Equals(factionDefinitionLabel));
                             MBBindingList<TooltipProperty> tooltipProperties = __instance.TooltipPropertyList;
@@ -48,7 +50,7 @@ namespace DynaCulture.View
                             List<TooltipProperty> tooltipPropertyMoreInfoList = __instance.TooltipPropertyList.ToList();
 
                             //Add Influences to tooltip
-                            Dictionary<string, decimal> influences = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].getInfluenceForSettlement();
+                            Dictionary<string, decimal> influences = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].CurrentInfluences;
 
                             if (influences.Count != 0)
                             {
@@ -60,11 +62,11 @@ namespace DynaCulture.View
                                     tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", 0, true, TooltipProperty.TooltipPropertyFlags.RundownSeperator));
                                     indexForInfluence++;
 
-                                    foreach (KeyValuePair<string, decimal> influence in influences)
+                                    foreach (KeyValuePair<string, decimal> influence in influences.OrderByDescending(i => i.Value))
                                     {
-                                        decimal targetInfluenceValue = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].getTargetInfluenceValueForSettlement(influence.Key) * 100;
+                                        decimal previousInfluenceValue = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].GetPreviousInfluenceForCulture(influence.Key) * 100;
                                         decimal influenceValue = influence.Value * 100;
-                                        decimal differenceInfluenceValue = influenceValue - targetInfluenceValue;
+                                        decimal differenceInfluenceValue = influenceValue - previousInfluenceValue;
                                         string culture = "";
 
                                         if (influence.Key.Length > 1)
@@ -79,7 +81,6 @@ namespace DynaCulture.View
                                     tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", -1, true));
                                     indexForInfluence++;
                                 }
-
                             }
 
                             __instance.TooltipPropertyList = new MBBindingList<TooltipProperty>();
@@ -93,7 +94,6 @@ namespace DynaCulture.View
                 System.Diagnostics.Debug.WriteLine(ex.Message);
                 System.Diagnostics.Debug.WriteLine(ex.StackTrace);
             }
-
         }
     }
 }

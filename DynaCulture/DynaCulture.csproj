@@ -35,7 +35,9 @@
     <Reference Include="0Harmony">
       <HintPath>$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.Harmony\bin\Win64_Shipping_Client\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="MCMv4">
+      <HintPath>$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv4.dll</HintPath>
+    </Reference>
     <Reference Include="TaleWorlds.MountAndBlade">
       <HintPath>$(MOUNT_AND_BLADE_DIR)bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll</HintPath>
     </Reference>
@@ -60,14 +62,6 @@
     <Reference Include="TaleWorlds.ObjectSystem">
       <HintPath>$(MOUNT_AND_BLADE_DIR)bin\Win64_Shipping_Client\TaleWorlds.ObjectSystem.dll</HintPath>
     </Reference>
-    <Reference Include="ModLib">
-      <HintPath>$(MODLIB)</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ModLib.Definitions">
-      <HintPath>$(MODLIB_DEFS)</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -82,7 +76,7 @@
     <Compile Include="Data\DynaCultureManager.cs" />
     <Compile Include="Data\DynaCultureStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="DynaCultureSettings.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Util\DynaCultureUtils.cs" />
     <Compile Include="Util\FileUtil.cs" />
@@ -97,6 +91,6 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MOD_FOLDER)\bin\Win64_Shipping_Client\" />
     <Copy SourceFiles="$(ProjectDir)\SubModule.xml" DestinationFolder="$(MOD_FOLDER)" />
-    <Copy SourceFiles="$(MODLIB_DEFS)" DestinationFolder="$(MOD_FOLDER)\bin\Win64_Shipping_Client\" />
+    <Copy SourceFiles="$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv4.dll" DestinationFolder="$(MOD_FOLDER)\bin\Win64_Shipping_Client\" />
   </Target>
 </Project>

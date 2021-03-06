@@ -13,7 +13,6 @@ using DynaCulture.Util;
 using TaleWorlds.ObjectSystem;
 using System.Xml.Linq;
 using TaleWorlds.Core;
-using System.Windows.Forms;
 
 namespace DynaCulture.Data
 {
@@ -82,7 +81,7 @@ namespace DynaCulture.Data
             if (first)
                 initializeAllSettlementCultures();
 
-            if (!Settings.Instance.PlayerKingdomOnly || (Settings.Instance.PlayerKingdomOnly && settlement.OwnerClan.Leader.IsHumanPlayerCharacter))
+            if (!DynaCultureSettings.Instance.PlayerKingdomOnly || (DynaCultureSettings.Instance.PlayerKingdomOnly && settlement.OwnerClan.Leader.IsHumanPlayerCharacter))
             {
                 if (settlement.IsVillage || settlement.IsCastle || settlement.IsTown)
                     DynaCultureManager.Instance.InfluenceMap[settlement.StringId].OnDailyTick();
@@ -118,7 +117,7 @@ namespace DynaCulture.Data
                 {
                     var removed = cleanseRoster(mobileParty.MemberRoster);
 
-                    if (removed && Settings.Instance.ShowCorruptedTroopMessage)
+                    if (removed && DynaCultureSettings.Instance.ShowCorruptedTroopMessage)
                         InformationManager.DisplayMessage(new InformationMessage(new TextObject($"(DynaCulture) Corrupted troops were cleansed from {mobileParty.Name} party.", (Dictionary<string, object>)null).ToString(), Colors.Yellow));
                 }
 
@@ -126,7 +125,7 @@ namespace DynaCulture.Data
                 {
                     var removed = cleanseRoster(mobileParty.PrisonRoster);
 
-                    if (removed && Settings.Instance.ShowCorruptedTroopMessage)
+                    if (removed && DynaCultureSettings.Instance.ShowCorruptedTroopMessage)
                         InformationManager.DisplayMessage(new InformationMessage(new TextObject($"(DynaCulture) Corrupted prisoners were cleansed from {mobileParty.Name} party.", (Dictionary<string, object>)null).ToString(), Colors.Yellow));
                 }
             }
@@ -154,7 +153,7 @@ namespace DynaCulture.Data
                     }
                 }
 
-                if (removed && Settings.Instance.ShowCorruptedTroopMessage)
+                if (removed && DynaCultureSettings.Instance.ShowCorruptedTroopMessage)
                     InformationManager.DisplayMessage(new InformationMessage(new TextObject($"(DynaCulture) Corrupted recruits were removed from {settlement.Name}.", (Dictionary<string, object>)null).ToString(), Colors.Yellow));
             }
             catch

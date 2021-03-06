@@ -39,6 +39,7 @@ namespace DynaCulture.Data
         internal int expectedIDKey = 0;
         internal int TargetInfluencesIDKey = 0;
         internal int daysSinceTargetsChanged = 0;
+        internal Dictionary<string, decimal> PreviousInfluences;
         internal Dictionary<string, decimal> CurrentInfluences;
         internal Dictionary<string, decimal> TargetInfluences;
 
@@ -64,11 +65,17 @@ namespace DynaCulture.Data
                 CurrentInfluences.Add(settlement.Culture.StringId, 1m);
             }
 
+            // There was no previous influence stored in the save file
+            if (PreviousInfluences == null)
+            {
+                PreviousInfluences = new Dictionary<string, decimal>();
+            }
+
             // there was no target influence stored in the save file
             if (TargetInfluences == null)
             {
                 TargetInfluences = new Dictionary<string, decimal>();
-                RecalculateInfluencers(true);
+                recalculateInfluencers(true);
             }
         }
 
@@ -77,9 +84,11 @@ namespace DynaCulture.Data
         /// </summary>
         public void OnDailyTick()
         {
-            int influenceSum = RecalculateInfluencers(false);
+            int influenceSum = recalculateInfluencers(false);
 
-            if (Settings.Instance.GradualAssimilation)
+            PreviousInfluences = new Dictionary<string, decimal>(CurrentInfluences);
+
+            if (DynaCultureSettings.Instance.GradualAssimilation)
             {
                 // detect if there were ownership changes around us
                 if (expectedIDKey != TargetInfluencesIDKey)
@@ -93,7 +102,7 @@ namespace DynaCulture.Data
                 }
 
                 // each day we will move 1/[setting] of the way towards the target
-                decimal assimilationRate = Math.Min((decimal)influenceSum / Settings.Instance.AssimilationDelay, 1);
+                decimal assimilationRate = Math.Min((decimal)influenceSum / DynaCultureSettings.Instance.AssimilationDelay, 1);
 
                 // Iterate each pressuring influence
                 foreach (var targetInfluence in TargetInfluences)
@@ -133,12 +142,22 @@ namespace DynaCulture.Data
             applyCulture();
         }
 
+        public decimal GetPreviousInfluenceForCulture(string culture)
+        {
+            decimal val;
+            if (PreviousInfluences != null && PreviousInfluences.TryGetValue(culture, out val))
+                return val;
+            if (CurrentInfluences.TryGetValue(culture, out val))
+                return val;
+            return 0m;
+        }
+
         /// <summary>
         /// Recalculate influence based on campaign circumstances and save it as "TargetInfluence"
         /// </summary>
         /// <param name="firstTimeSetup"></param>
         /// <returns></returns>
-        public int RecalculateInfluencers(bool firstTimeSetup)
+        int recalculateInfluencers(bool firstTimeSetup)
         {
             Settlement settlement = Settlement.Find(settlementId);
 
@@ -146,9 +165,9 @@ namespace DynaCulture.Data
             List<Settlement> influencingSettlements = new List<Settlement>();
 
             // Geographically close settlements
-            influencingSettlements.AddRange(Settlement.FindSettlementsAroundPosition(settlement.Position2D, Settings.Instance.SettlementInfluenceRange).Where(x => x.IsVillage || x.IsCastle || x.IsTown));
+            influencingSettlements.AddRange(Settlement.FindSettlementsAroundPosition(settlement.Position2D, DynaCultureSettings.Instance.SettlementInfluenceRange).Where(x => x.IsVillage || x.IsCastle || x.IsTown));
 
-            if (Settings.Instance.TradeLinkedInfluence)
+            if (DynaCultureSettings.Instance.TradeLinkedInfluence)
             {
                 // Trade-linked settlements
                 if (settlement.IsCastle || settlement.IsTown)
@@ -174,7 +193,7 @@ namespace DynaCulture.Data
             }
 
             // calculate the influence caused by our owners
-            int ownerInfluence = BASE_INFLUENCE * Settings.Instance.OwnerInfluenceStrength;
+            int ownerInfluence = BASE_INFLUENCE * DynaCultureSettings.Instance.OwnerInfluenceStrength;
             sum += ownerInfluence;
 
             if (ownerInfluence > 0)
@@ -223,7 +242,7 @@ namespace DynaCulture.Data
         /// Get the influence ratio of the top culture for this settlement
         /// </summary>
         /// <returns></returns>
-        public decimal GetPercentOfTopCulture()
+        decimal getTopCultureValue()
         {
             return CurrentInfluences[getTopCulture().StringId];
         }
@@ -308,19 +327,9 @@ namespace DynaCulture.Data
 
             // Scale the influence based on the influence ratios of the other settlement. Skip on first time setup.
             if (!firstTimeSetup)
-                influenceValue = (int)decimal.Round((decimal)influenceValue * DynaCultureManager.Instance.InfluenceMap[otherSettlement.StringId].GetPercentOfTopCulture());
+                influenceValue = (int)decimal.Round((decimal)influenceValue * DynaCultureManager.Instance.InfluenceMap[otherSettlement.StringId].getTopCultureValue());
 
             return influenceValue;
-        }
-
-        public Dictionary<string, decimal> getInfluenceForSettlement()
-        {
-            return CurrentInfluences.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value); ;
-        }
-
-        public decimal getTargetInfluenceValueForSettlement(string culture)
-        {
-            return TargetInfluences.Where(x => x.Key == culture).OrderByDescending(x => x.Value).First().Value;
         }
     }
 }

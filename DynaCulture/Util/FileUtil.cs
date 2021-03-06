@@ -15,45 +15,29 @@ namespace DynaCulture.Util
     {
         public static T TryLoadSerializedFile<T>(string characterName)
         {
-            try
-            {
-                string path = GetConfigDirectory();
+            string path = GetConfigDirectory();
 
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-                string filename = GetSerializedFileName(characterName);
+            string filename = GetSerializedFileName(characterName);
 
-                if (File.Exists(Path.Combine(path, filename)))
-                    return Serializator.Deserialize<T>(Path.Combine(path, filename));
-            }
-            catch (Exception ex)
-            {
-                if (System.Diagnostics.Debugger.IsAttached)
-                    System.Windows.Forms.MessageBox.Show("Failed to load or deserialize saved culture file: " + ex.Message);
-            }
+            if (File.Exists(Path.Combine(path, filename)))
+                return Serializator.Deserialize<T>(Path.Combine(path, filename));
 
             return default;
         }
 
         public static void SaveSerializedFile(string characterName, object o)
         {
-            try
-            {
-                string path = GetConfigDirectory();
+            string path = GetConfigDirectory();
 
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-                string filename = GetSerializedFileName(characterName);
+            string filename = GetSerializedFileName(characterName);
 
-                Serializator.Serialize(Path.Combine(path, filename), o);
-            }
-            catch (Exception ex)
-            {
-                if (System.Diagnostics.Debugger.IsAttached)
-                    System.Windows.Forms.MessageBox.Show("Failed to save or serialize culture file: " + ex.Message);
-            }
+            Serializator.Serialize(Path.Combine(path, filename), o);
         }
 
         public static string GetConfigDirectory()
