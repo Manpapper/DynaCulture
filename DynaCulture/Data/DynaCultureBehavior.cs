@@ -52,7 +52,10 @@ namespace DynaCulture.Data
             // clean up corrupted recruits from previous sessions, if they exist
             foreach (var settlement in Campaign.Current.Settlements)
                 RemoveCorruptedRecruits(settlement);
+        }
 
+        void initializeDynaCulture()
+        {
             // Add resilience against new settments being added mid-campaign
             foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
             {
@@ -71,6 +74,9 @@ namespace DynaCulture.Data
         {
             if (!Campaign.Current.GameStarted || Campaign.Current.Settlements == null)
                 return;
+
+            if (DynaCultureManager.Instance.InfluenceMap.Count == 0)
+                initializeDynaCulture();
 
             if (!DynaCultureSettings.Instance.PlayerKingdomOnly || (DynaCultureSettings.Instance.PlayerKingdomOnly && settlement.OwnerClan.Leader.IsHumanPlayerCharacter))
             {

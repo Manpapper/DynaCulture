@@ -54,8 +54,6 @@ namespace DynaCulture.Data
         /// </summary>
         public void OnCampaignLoad()
         {
-            _cachedCultures = new Dictionary<string, CultureObject>();
-
             // There was no current influence stored in the save file
             if (CurrentInfluences == null)
             {
@@ -252,6 +250,7 @@ namespace DynaCulture.Data
         /// </summary>
         static void initializeCultures()
         {
+            _cachedCultures = new Dictionary<string, CultureObject>();
             foreach (var culture in Campaign.Current.Kingdoms.Where(x => x.IsKingdomFaction && x.Culture != null).Select(x => x.Culture).Distinct())
             {
                 if (!_cachedCultures.ContainsKey(culture.StringId))

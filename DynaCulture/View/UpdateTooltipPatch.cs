@@ -52,7 +52,7 @@ namespace DynaCulture.View
                         if (influences.Count != 0)
                         {
                             int indexForInfluence = __instance.TooltipPropertyList.FindIndex(x => x.DefinitionLabel.Equals(troopTypesDefinitionLabel));
-                            if(indexForInfluence != 0)
+                            if(indexForInfluence >= 0)
                             {
                                 tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("Influences", " ", 0, true));
                                 indexForInfluence++;
@@ -77,11 +77,11 @@ namespace DynaCulture.View
 
                                 tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", -1, true));
                                 indexForInfluence++;
+
+                                __instance.TooltipPropertyList = new MBBindingList<TooltipProperty>();
+                                __instance.UpdateTooltip(tooltipPropertyMoreInfoList);
                             }
                         }
-
-                        __instance.TooltipPropertyList = new MBBindingList<TooltipProperty>();
-                        __instance.UpdateTooltip(tooltipPropertyMoreInfoList);
                     }
                 }
             }
