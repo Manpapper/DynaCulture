@@ -8,18 +8,16 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-using DynaCulture.Data;
 using HarmonyLib;
+
+using DynaCulture.Data;
 
 namespace DynaCulture
 {
     public class SubModule : MBSubModuleBase
     {
-        public static readonly string ModuleFolderName = "DynaCulture";
-
         protected override void OnSubModuleLoad()
         {
-            //Harmony.DEBUG = true;
             Harmony harmony = new Harmony("mod.bannerlord.splintert");
             harmony.PatchAll();
 
@@ -31,12 +29,8 @@ namespace DynaCulture
             if (!(game.GameType is Campaign))
                 return;
 
-            this.AddBehaviors((CampaignGameStarter)gameStarter);
-        }
-
-        private void AddBehaviors(CampaignGameStarter gameStarter)
-        {
-            gameStarter.AddBehavior(new DynaCultureBehavior());
+            if (gameStarter is CampaignGameStarter)
+                (gameStarter as CampaignGameStarter).AddBehavior(new DynaCultureBehavior());
         }
     }
 }

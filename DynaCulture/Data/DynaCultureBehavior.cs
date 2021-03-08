@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Localization;
 using TaleWorlds.Library;
+using TaleWorlds.ObjectSystem;
+using TaleWorlds.Core;
 
 using DynaCulture.Util;
-using TaleWorlds.ObjectSystem;
-using System.Xml.Linq;
-using TaleWorlds.Core;
+using DynaCulture.Settings;
 
 namespace DynaCulture.Data
 {
     class DynaCultureBehavior : CampaignBehaviorBase
     {
-        bool first = true;
-
         public DynaCultureBehavior()
         {
             // Clean up any existing CultureChangeManagers from current session
@@ -53,10 +52,7 @@ namespace DynaCulture.Data
             // clean up corrupted recruits from previous sessions, if they exist
             foreach (var settlement in Campaign.Current.Settlements)
                 RemoveCorruptedRecruits(settlement);
-        }
 
-        void initializeAllSettlementCultures()
-        {
             // Add resilience against new settments being added mid-campaign
             foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
             {
@@ -69,17 +65,12 @@ namespace DynaCulture.Data
             {
                 DynaCultureManager.Instance.InfluenceMap[settlement.StringId].OnCampaignLoad();
             }
-
-            first = false;
         }
 
         public void DailyTickSettlementMod(Settlement settlement)
         {
             if (!Campaign.Current.GameStarted || Campaign.Current.Settlements == null)
                 return;
-
-            if (first)
-                initializeAllSettlementCultures();
 
             if (!DynaCultureSettings.Instance.PlayerKingdomOnly || (DynaCultureSettings.Instance.PlayerKingdomOnly && settlement.OwnerClan.Leader.IsHumanPlayerCharacter))
             {
