@@ -46,6 +46,9 @@ namespace DynaCulture.View
 
                         List<TooltipProperty> tooltipPropertyMoreInfoList = __instance.TooltipPropertyList.ToList();
 
+                        if (DynaCultureManager.Instance.InfluenceMap.Count == 0)
+                            DynaCultureManager.Initialize();
+
                         //Add Influences to tooltip
                         Dictionary<string, decimal> influences = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].CurrentInfluences;
 

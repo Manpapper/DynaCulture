@@ -54,29 +54,13 @@ namespace DynaCulture.Data
                 RemoveCorruptedRecruits(settlement);
         }
 
-        void initializeDynaCulture()
-        {
-            // Add resilience against new settments being added mid-campaign
-            foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
-            {
-                if (!DynaCultureManager.Instance.InfluenceMap.ContainsKey(settlement.StringId))
-                    DynaCultureManager.Instance.InfluenceMap.Add(settlement.StringId, new DynaCultureStatus(settlement));
-            }
-
-            // Allow each settlement to initialize itself only after assuring all settments have culture statuses
-            foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
-            {
-                DynaCultureManager.Instance.InfluenceMap[settlement.StringId].OnCampaignLoad();
-            }
-        }
-
         public void DailyTickSettlementMod(Settlement settlement)
         {
             if (!Campaign.Current.GameStarted || Campaign.Current.Settlements == null)
                 return;
 
             if (DynaCultureManager.Instance.InfluenceMap.Count == 0)
-                initializeDynaCulture();
+                DynaCultureManager.Initialize();
 
             if (!DynaCultureSettings.Instance.PlayerKingdomOnly || (DynaCultureSettings.Instance.PlayerKingdomOnly && settlement.OwnerClan.Leader.IsHumanPlayerCharacter))
             {
