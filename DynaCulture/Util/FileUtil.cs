@@ -42,7 +42,7 @@ namespace DynaCulture.Util
 
         public static string GetConfigDirectory()
         {
-            return $@"C:\Users\{Environment.UserName}\Documents\Mount and Blade II Bannerlord\Configs\DynaCulture\";
+            return $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\Mount and Blade II Bannerlord\Configs\DynaCulture\";
         }
 
         public static string GetSerializedFileName(string characterName)

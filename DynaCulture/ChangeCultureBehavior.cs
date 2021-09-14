@@ -197,8 +197,8 @@ namespace ChangeSettlementCulture.Data
                     }
                     msg2 += "\n";
                 }
-                string file = $@"C:\Users\{Environment.UserName}\Desktop\debug.txt";
-                string file2 = $@"C:\Users\{Environment.UserName}\Desktop\debugPrevious.txt";
+                string file = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\debug.txt";
+                string file2 = $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\debugPrevious.txt";
                 if (System.IO.File.Exists(file))
                 {
                     if (System.IO.File.Exists(file2))
