@@ -19,6 +19,7 @@ namespace DynaCulture.Data
 {
     class DynaCultureBehavior : CampaignBehaviorBase
     {
+        public Dictionary<string, CharacterObject> troopMap = new Dictionary<string, CharacterObject>();
         public DynaCultureBehavior()
         {
             // Clean up any existing CultureChangeManagers from current session
@@ -44,6 +45,8 @@ namespace DynaCulture.Data
 
             // Reset between sessions to avoid culture cross contamination
             DynaCultureManager.Reset();
+
+            SaveAllTypeOfTroops();
 
             // clean up corrupted troops from previous sessions, if they exist
             foreach (var party in Campaign.Current.MobileParties)
@@ -82,7 +85,9 @@ namespace DynaCulture.Data
                 // delete them
                 foreach (CharacterObject troop in characterObjects)
                 {
-                    roster.RemoveTroop(troop, roster.GetTroopCount(troop));
+                    int number = roster.GetTroopCount(troop);
+                    roster.RemoveTroop(troop, number);
+                    roster.AddToCounts(troopMap[troop.StringId], number);
                     removed = true;
                 }
             }
@@ -149,6 +154,38 @@ namespace DynaCulture.Data
         public void OnSave()
         {
             FileUtil.SaveSerializedFile(Hero.MainHero.Name.ToString(), DynaCultureManager.Instance);
+        }
+
+        private void SaveAllTypeOfTroops()
+        {
+            foreach (MobileParty mobileParty in Campaign.Current.MobileParties)
+            {
+
+                if (mobileParty.MemberRoster.Count != 0)
+                {
+                    AddTroopRosterToTroopMap(mobileParty.MemberRoster);
+                }
+
+                if (mobileParty.PrisonRoster.Count != 0)
+                {
+                    AddTroopRosterToTroopMap(mobileParty.PrisonRoster);
+                }
+            }
+        }
+
+        private void AddTroopRosterToTroopMap(TroopRoster roster)
+        {
+            TroopRosterElement[] troops = (TroopRosterElement[])roster.GetType().GetField("data", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(roster);
+            var characterObjects = troops.Where(t => t.Number > 0 && t.Character?.Age != 0f).Select(t => t.Character).ToList();
+
+            if (characterObjects.Any())
+            {
+                foreach (CharacterObject troop in characterObjects)
+                {
+                    if (!troopMap.ContainsKey(troop.StringId))
+                        troopMap.Add(troop.StringId, troop);
+                }
+            }
         }
     }
 }
