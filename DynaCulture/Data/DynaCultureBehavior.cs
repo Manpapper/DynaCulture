@@ -162,19 +162,16 @@ namespace DynaCulture.Data
             {
 
                 if (mobileParty.MemberRoster.Count != 0)
-                {
                     AddTroopRosterToTroopMap(mobileParty.MemberRoster);
-                }
 
                 if (mobileParty.PrisonRoster.Count != 0)
-                {
                     AddTroopRosterToTroopMap(mobileParty.PrisonRoster);
-                }
             }
         }
 
         private void AddTroopRosterToTroopMap(TroopRoster roster)
         {
+            //We get only non corrupted troops
             TroopRosterElement[] troops = (TroopRosterElement[])roster.GetType().GetField("data", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(roster);
             var characterObjects = troops.Where(t => t.Number > 0 && t.Character?.Age != 0f).Select(t => t.Character).ToList();
 
