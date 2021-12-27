@@ -18,17 +18,12 @@ namespace DynaCulture.Patch
         {
             CharacterObject troop = __instance.GetCharacterAtIndex(index);
 
-            //Corrupted Troop
+            //We skip the ClampXp call since it will crash with corrupted troop
             if (troop.Age == 0)
-            {
-                //We skip the ClampXp call since it will crash with corrupted troop
                 return false;
-            }
-            else
-            {
-                //We continue to call ClampXp
-                return true;
-            }
+
+            //We continue to call ClampXp
+            return true;
 
         }
 
