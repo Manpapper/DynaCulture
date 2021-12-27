@@ -87,7 +87,8 @@ namespace DynaCulture.Data
                 {
                     int number = roster.GetTroopCount(troop);
                     roster.RemoveTroop(troop, number);
-                    roster.AddToCounts(troopMap[troop.StringId], number);
+                    if(troopMap[troop.StringId] != null)
+                        roster.AddToCounts(troopMap[troop.StringId], number);
                     removed = true;
                 }
             }
