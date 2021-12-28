@@ -38,11 +38,11 @@
     <Reference Include="MCMv4">
       <HintPath>$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv4.dll</HintPath>
     </Reference>
-    <Reference Include="TaleWorlds.MountAndBlade">
-      <HintPath>$(MOUNT_AND_BLADE_DIR)bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll</HintPath>
-    </Reference>
     <Reference Include="TaleWorlds.Core">
       <HintPath>$(MOUNT_AND_BLADE_DIR)bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade">
+      <HintPath>$(MOUNT_AND_BLADE_DIR)bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll</HintPath>
     </Reference>
     <Reference Include="TaleWorlds.Core.ViewModelCollection">
       <HintPath>$(MOUNT_AND_BLADE_DIR)bin\Win64_Shipping_Client\TaleWorlds.Core.ViewModelCollection.dll</HintPath>
@@ -75,6 +75,7 @@
     <Compile Include="Data\DynaCultureBehavior.cs" />
     <Compile Include="Data\DynaCultureManager.cs" />
     <Compile Include="Data\DynaCultureStatus.cs" />
+    <Compile Include="Patch\TroopRosterPatch.cs" />
     <Compile Include="Settings\DefaultDynaCultureSettings.cs" />
     <Compile Include="Settings\ISettingsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
