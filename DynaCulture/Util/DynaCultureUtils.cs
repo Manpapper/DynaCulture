@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Settlements;
 
 namespace DynaCulture.Util
 {
