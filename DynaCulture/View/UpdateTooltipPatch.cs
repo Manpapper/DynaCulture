@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using TaleWorlds.CampaignSystem.Settlements;
-using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
 using HarmonyLib;
@@ -12,13 +12,16 @@ using DynaCulture.Data;
 
 namespace DynaCulture.View
 {
-    [HarmonyPatch(typeof(TooltipVM), "OpenTooltip")]
+    [HarmonyPatch(typeof(PropertyBasedTooltipVM), "Refresh")]
     public class UpdateTooltipPatch
     {
         [HarmonyPostfix]
-        private static void UpdateTooltipPostfix(TooltipVM __instance, Type type, object[] args)
+        private static void RefreshPostfix(PropertyBasedTooltipVM __instance)
         {
-            if (args.Length > 0)
+            Type _shownType = (Type)__instance.GetType().GetField("_shownType", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(__instance);
+            object[] args = (object[])__instance.GetType().GetField("_typeArgs", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(__instance);
+            
+            if (_shownType == typeof(Settlement))
             {
                 if (args[0].GetType() == typeof(Settlement) && (Settlement)args[0] != null)
                 {
@@ -53,7 +56,10 @@ namespace DynaCulture.View
                         if (influences.Count != 0)
                         {
                             int indexForInfluence = __instance.TooltipPropertyList.FindIndex(x => x.DefinitionLabel.Equals(troopTypesDefinitionLabel));
-                            if(indexForInfluence >= 0)
+                            if (indexForInfluence == -1)
+                                indexForInfluence = __instance.TooltipPropertyList.Count;
+
+                            if (indexForInfluence >= 0)
                             {
                                 tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("Influences", " ", 0, true));
                                 indexForInfluence++;

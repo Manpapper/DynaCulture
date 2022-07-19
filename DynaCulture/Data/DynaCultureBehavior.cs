@@ -8,7 +8,6 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Localization;
 using TaleWorlds.Library;
-using TaleWorlds.Core;
 
 using DynaCulture.Util;
 
