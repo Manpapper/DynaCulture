@@ -20,8 +20,9 @@ namespace DynaCulture.Util
                 if (remainingTowns == 1)
                     return;
             }
-
+            
             settlement.Culture = culture;
+            ChangeNotablesCulture(settlement.Notables.ToList(), culture);
 
             // Attempt to set attached villages
             if (settlement.BoundVillages != null)
@@ -32,9 +33,39 @@ namespace DynaCulture.Util
                         continue;
 
                     attached.Settlement.Culture = culture;
+                    ChangeNotablesCulture(attached.Settlement.Notables.ToList(), culture);
                 }
             }
         }
+
+        public static void ChangeSettlementNotablesCulture(Settlement settlement, CultureObject culture)
+        {
+            ChangeNotablesCulture(settlement.Notables.ToList(), culture);
+
+            // Attempt to set attached villages
+            if (settlement.BoundVillages != null)
+            {
+                foreach (Village attached in settlement.BoundVillages)
+                {
+                    if (attached.Settlement == null)
+                        continue;
+
+                    ChangeNotablesCulture(attached.Settlement.Notables.ToList(), culture);
+                }
+            }
+        }
+
+        private static void ChangeNotablesCulture(List<Hero> notables, CultureObject culture)
+        {
+            foreach(Hero notable in notables)
+            {
+                if (notable.CanHaveRecruits)
+                {
+                    notable.Culture = culture;
+                }
+            }
+        }
+
 
         public static CultureObject GetOwnerCulture(Settlement settlement)
         {
@@ -45,5 +76,6 @@ namespace DynaCulture.Util
             else
                 return settlement.Culture;
         }
+
     }
 }

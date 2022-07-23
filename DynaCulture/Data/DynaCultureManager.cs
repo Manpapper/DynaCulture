@@ -33,14 +33,16 @@ namespace DynaCulture.Data
 
         public static void Initialize()
         {
-            // Add resilience against new settments being added mid-campaign
+            // Add resilience against new settlements being added mid-campaign
             foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
             {
                 if (!DynaCultureManager.Instance.InfluenceMap.ContainsKey(settlement.StringId))
                     DynaCultureManager.Instance.InfluenceMap.Add(settlement.StringId, new DynaCultureStatus(settlement));
+                else
+                    DynaCultureManager.Instance.InfluenceMap[settlement.StringId].applyCulture();
             }
 
-            // Allow each settlement to initialize itself only after assuring all settments have culture statuses
+            // Allow each settlement to initialize itself only after assuring all settlements have culture statuses
             foreach (Settlement settlement in Campaign.Current.Settlements.Where(x => x.IsVillage || x.IsCastle || x.IsTown))
             {
                 DynaCultureManager.Instance.InfluenceMap[settlement.StringId].OnCampaignLoad();

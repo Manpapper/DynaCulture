@@ -80,6 +80,9 @@ namespace DynaCulture.Data
         {
             int influenceSum = recalculateInfluencers(false);
 
+            RemoveNonRevelentCulture(CurrentInfluences);
+            RemoveNonRevelentCulture(TargetInfluences);
+
             PreviousInfluences = new Dictionary<string, decimal>(CurrentInfluences);
 
             if (DynaCultureSettings.Instance.GradualAssimilation)
@@ -119,16 +122,6 @@ namespace DynaCulture.Data
                     }
                 }
 
-                // Clear out no-influence cultures
-                for (int x = 0; x < CurrentInfluences.Count; x++)
-                {
-                    var currentInfluence = CurrentInfluences.ElementAt(x);
-                    if (currentInfluence.Value < 0)
-                    {
-                        CurrentInfluences.Remove(CurrentInfluences.ElementAt(x).Key);
-                        x--;
-                    }
-                }
             }
             else
                 CurrentInfluences = TargetInfluences;
@@ -282,7 +275,7 @@ namespace DynaCulture.Data
         /// <summary>
         /// If the top culture is different than the current culture, it will be changed here
         /// </summary>
-        void applyCulture()
+        public void applyCulture()
         {
             Settlement settlement = Settlement.Find(settlementId);
             CultureObject topCulture = getTopCulture();
@@ -290,6 +283,8 @@ namespace DynaCulture.Data
             {
                 DynaCultureUtils.ChangeSettlementCulture(settlement, topCulture);
             }
+
+            DynaCultureUtils.ChangeSettlementNotablesCulture(settlement, topCulture);
         }
 
         /// <summary>
@@ -325,6 +320,19 @@ namespace DynaCulture.Data
                 influenceValue = (int)decimal.Round((decimal)influenceValue * DynaCultureManager.Instance.InfluenceMap[otherSettlement.StringId].getTopCultureValue());
 
             return influenceValue;
+        }
+
+        private void RemoveNonRevelentCulture(Dictionary<string, decimal> dictInfluences)
+        {
+            // Clear out no-influence cultures
+            for (int x = 0; x < dictInfluences.Count; x++)
+            {
+                if (dictInfluences.ElementAt(x).Value < 0.1m)
+                {
+                    dictInfluences.Remove(dictInfluences.ElementAt(x).Key);
+                    x--;
+                }
+            }
         }
     }
 }

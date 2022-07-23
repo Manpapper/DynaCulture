@@ -39,8 +39,11 @@ namespace DynaCulture.Data
             if (!Campaign.Current.GameStarted || Campaign.Current.Settlements == null)
                 return;
 
-            // Reset between sessions to avoid culture cross contamination
+            // Reset between sessions to avoid culture cross contamination when loading without restarting the game
             DynaCultureManager.Reset();
+
+            //Initialize settlement culture if there is a savefile if not it will populate the InfluenceMap of the manager with current settlement
+            DynaCultureManager.Initialize();
 
             SaveAllTypeOfTroops();
 

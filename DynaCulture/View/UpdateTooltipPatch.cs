@@ -29,8 +29,10 @@ namespace DynaCulture.View
 
                     if(settlement.IsCastle || settlement.IsTown || settlement.IsVillage)
                     {
-                        string factionDefinitionLabel = "Faction";
+                        
                         string troopTypesDefinitionLabel = "Troops";
+                        /* e1.8.0 seems to show culture by default
+                        string factionDefinitionLabel = "Faction";
 
                         int indexOfFaction = __instance.TooltipPropertyList.FindIndex(x => x.DefinitionLabel.Equals(factionDefinitionLabel));
                         MBBindingList<TooltipProperty> tooltipProperties = __instance.TooltipPropertyList;
@@ -44,11 +46,10 @@ namespace DynaCulture.View
                             }
                         }
                         __instance.TooltipPropertyList = tooltipProperties;
+                        
+                         */
 
                         List<TooltipProperty> tooltipPropertyMoreInfoList = __instance.TooltipPropertyList.ToList();
-
-                        if (DynaCultureManager.Instance.InfluenceMap.Count == 0)
-                            DynaCultureManager.Initialize();
 
                         //Add Influences to tooltip
                         Dictionary<string, decimal> influences = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].CurrentInfluences;
