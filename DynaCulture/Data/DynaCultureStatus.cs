@@ -237,7 +237,7 @@ namespace DynaCulture.Data
         /// <summary>
         /// Initializes the culture cache
         /// </summary>
-        static void initializeCultures()
+        public static void initializeCultures()
         {
             _cachedCultures = new Dictionary<string, CultureObject>();
             foreach (var culture in Campaign.Current.Kingdoms.Where(x => x.IsKingdomFaction && x.Culture != null).Select(x => x.Culture).Distinct())

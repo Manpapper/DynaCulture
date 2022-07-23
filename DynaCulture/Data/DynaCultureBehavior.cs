@@ -16,11 +16,6 @@ namespace DynaCulture.Data
     class DynaCultureBehavior : CampaignBehaviorBase
     {
         public Dictionary<string, CharacterObject> troopMap = new Dictionary<string, CharacterObject>();
-        public DynaCultureBehavior()
-        {
-            // Clean up any existing CultureChangeManagers from current session
-            DynaCultureManager.Reset();
-        }
 
         public override void RegisterEvents()
         {

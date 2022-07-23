@@ -52,6 +52,7 @@ namespace DynaCulture.Data
         internal static void Reset()
         {
             _instance = null;
+            DynaCultureStatus.initializeCultures();
         }
 
         public Dictionary<string, DynaCultureStatus> InfluenceMap = new Dictionary<string, DynaCultureStatus>();

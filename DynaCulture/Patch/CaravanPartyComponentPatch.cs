@@ -1,4 +1,6 @@
 ﻿using HarmonyLib;
+using System;
+using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Party.PartyComponents;
@@ -18,7 +20,7 @@ namespace DynaCulture.Patch
             int troopToBeGiven,
             bool isElite)
         {
-            if (mobileParty.Party.Owner.Culture.CaravanPartyTemplate == null || mobileParty.Party.Owner.Culture.EliteCaravanPartyTemplate == null)
+            if (mobileParty.Party.Owner.Culture == null)
                 return false;
 
             //We continue to call InitializeCaravanOnCreation
