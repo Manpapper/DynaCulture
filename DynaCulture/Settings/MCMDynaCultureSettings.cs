@@ -45,7 +45,7 @@ namespace DynaCulture.Settings
         [SettingPropertyGroup("Settings")]
         public bool PlayerKingdomOnly { get; set; } = false;
 
-        [SettingPropertyBool("Change Culture Of Notables", HintText = "(Default true) When a settlement change culture activating this will change the culture of Notable (It will affect recruit/volunteer type), the notables who already changed culture will keep it.", Order = 1, RequireRestart = false)]
+        [SettingPropertyBool("Change Notables Culture", HintText = "(Default true) When a settlement change culture activating this will change the culture of Notable (It will affect recruit/volunteer type), notables who already changed culture will keep it.", Order = 1, RequireRestart = false)]
         [SettingPropertyGroup("Settings")]
         public bool ChangeNotablesCulture { get; set; } = true;
 
