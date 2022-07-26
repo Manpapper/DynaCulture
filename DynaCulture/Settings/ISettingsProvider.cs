@@ -21,5 +21,7 @@ namespace DynaCulture.Settings
         bool PlayerKingdomOnly { get; set; }
 
         bool ShowCorruptedTroopMessage { get; set; }
+
+        bool ChangeNotablesCulture { get; set; }
     }
 }

@@ -30,18 +30,28 @@ namespace DynaCulture.Settings
         public int AssimilationDelay { get; set; } = 45;
 
         [SettingPropertyInteger("Owner Kingdom Influence Strength", 0, 20, HintText = "(Default 5) Extra influence for the owner of the settlement", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("Culture Influence")]
         public int OwnerInfluenceStrength { get; set; } = 5;
 
         [SettingPropertyInteger("Settlement Influence Range", 1, 60, HintText = "(Default 30) Geographical range to check for influence from surrounding settlements", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("Culture Influence")]
         public int SettlementInfluenceRange { get; set; } = 30;
 
         [SettingPropertyBool("Linked Settlements Cause Influence", HintText = "(Default true) Settlements linked by peasant trade will influence each other", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("Culture Influence")]
         public bool TradeLinkedInfluence { get; set; } = true;
 
         [SettingPropertyBool("Assimilate Player Kingdom Only", HintText = "(Default false) Only the Player's kingdom's settlements will change culture", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("Settings")]
         public bool PlayerKingdomOnly { get; set; } = false;
 
+        [SettingPropertyBool("Change Culture Of Notables", HintText = "(Default true) When a settlement change culture activating this will change the culture of Notable (It will affect recruit/volunteer type), the notables who already changed culture will keep it.", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("Settings")]
+        public bool ChangeNotablesCulture { get; set; } = true;
+
         [SettingPropertyBool("Show Corrupted Troop Message", HintText = "(Default true) Toggle the corrupted troops removal message", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("Logs")]
         public bool ShowCorruptedTroopMessage { get; set; } = true;
+
     }
 }
