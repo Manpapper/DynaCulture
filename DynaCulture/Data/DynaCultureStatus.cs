@@ -327,7 +327,7 @@ namespace DynaCulture.Data
             // Clear out no-influence cultures
             for (int x = 0; x < dictInfluences.Count; x++)
             {
-                if (dictInfluences.ElementAt(x).Value < 0.1m)
+                if (dictInfluences.ElementAt(x).Value < 1m / (decimal)Math.Pow(10, 6))
                 {
                     dictInfluences.Remove(dictInfluences.ElementAt(x).Key);
                     x--;

@@ -35,8 +35,8 @@
     <Reference Include="0Harmony">
       <HintPath>$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.Harmony\bin\Win64_Shipping_Client\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="MCMv4">
-      <HintPath>$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv4.dll</HintPath>
+    <Reference Include="MCMv5">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv5.dll</HintPath>
     </Reference>
     <Reference Include="TaleWorlds.Core">
       <HintPath>$(MOUNT_AND_BLADE_DIR)bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
@@ -95,6 +95,6 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MOD_FOLDER)\bin\Win64_Shipping_Client\" />
     <Copy SourceFiles="$(ProjectDir)\SubModule.xml" DestinationFolder="$(MOD_FOLDER)" />
-    <Copy SourceFiles="$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv4.dll" DestinationFolder="$(MOD_FOLDER)\bin\Win64_Shipping_Client\" />
+    <Copy SourceFiles="$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv5.dll" DestinationFolder="$(MOD_FOLDER)\bin\Win64_Shipping_Client\" />
   </Target>
 </Project>
