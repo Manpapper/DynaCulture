@@ -59,7 +59,7 @@ namespace DynaCulture.Data
             if (DynaCultureManager.Instance.InfluenceMap.Count == 0)
                 DynaCultureManager.Initialize();
 
-            if (!DynaCultureSettings.Instance.PlayerKingdomOnly || (DynaCultureSettings.Instance.PlayerKingdomOnly && settlement.OwnerClan.Leader.IsHumanPlayerCharacter))
+            if (!DynaCultureSettings.Instance.PlayerKingdomOnly || (DynaCultureSettings.Instance.PlayerKingdomOnly && settlement.OwnerClan != null  && settlement.OwnerClan.Leader != null && settlement.OwnerClan.Leader.IsHumanPlayerCharacter))
             {
                 if (settlement.IsVillage || settlement.IsCastle || settlement.IsTown)
                     DynaCultureManager.Instance.InfluenceMap[settlement.StringId].OnDailyTick();
