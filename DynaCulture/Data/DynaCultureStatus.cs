@@ -81,7 +81,6 @@ namespace DynaCulture.Data
             int influenceSum = recalculateInfluencers(false);
 
             RemoveNonRevelentCulture(CurrentInfluences);
-            RemoveNonRevelentCulture(TargetInfluences);
 
             PreviousInfluences = new Dictionary<string, decimal>(CurrentInfluences);
 
@@ -102,7 +101,7 @@ namespace DynaCulture.Data
                 decimal assimilationRate = Math.Min((decimal)influenceSum / DynaCultureSettings.Instance.AssimilationDelay, 1);
 
                 // Iterate each pressuring influence
-                foreach (var targetInfluence in TargetInfluences)
+                foreach (KeyValuePair<string, decimal> targetInfluence in TargetInfluences.ToList())
                 {
                     // If we already have some of that culture
                     if (CurrentInfluences.ContainsKey(targetInfluence.Key))
@@ -322,14 +321,16 @@ namespace DynaCulture.Data
             return influenceValue;
         }
 
-        private void RemoveNonRevelentCulture(Dictionary<string, decimal> dictInfluences)
+        private void RemoveNonRevelentCulture(Dictionary<string, decimal> currentInfluences)
         {
-            // Clear out no-influence cultures
-            for (int x = 0; x < dictInfluences.Count; x++)
+            // Clear out no-influence cultures ( culture < 0.01 )
+            for (int x = 0; x < currentInfluences.Count; x++)
             {
-                if (dictInfluences.ElementAt(x).Value < 1m / (decimal)Math.Pow(10, 6))
+                if (currentInfluences.ElementAt(x).Value < 1m / (decimal)Math.Pow(10, 3))
                 {
-                    dictInfluences.Remove(dictInfluences.ElementAt(x).Key);
+                    PreviousInfluences.Remove(currentInfluences.ElementAt(x).Key);
+                    TargetInfluences.Remove(currentInfluences.ElementAt(x).Key);
+                    currentInfluences.Remove(currentInfluences.ElementAt(x).Key);
                     x--;
                 }
             }
