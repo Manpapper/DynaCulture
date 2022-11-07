@@ -17,7 +17,6 @@ namespace DynaCulture
         public int SettlementInfluenceRange { get => _provider.SettlementInfluenceRange; set => _provider.SettlementInfluenceRange = value; }
         public bool TradeLinkedInfluence { get => _provider.TradeLinkedInfluence; set => _provider.TradeLinkedInfluence = value; }
         public bool PlayerKingdomOnly { get => _provider.PlayerKingdomOnly; set => _provider.PlayerKingdomOnly = value; }
-        public bool ShowCorruptedTroopMessage { get => _provider.ShowCorruptedTroopMessage; set => _provider.ShowCorruptedTroopMessage = value; }
         public bool ChangeNotablesCulture { get => _provider.ChangeNotablesCulture; set => _provider.ChangeNotablesCulture = value; }
 
         static DynaCultureSettings _instance;

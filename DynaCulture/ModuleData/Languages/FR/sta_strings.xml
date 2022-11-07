@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+      xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/BUTR/Bannerlord.XmlSchemas/master/ModuleLanguage.xsd" >
+  <tags>
+    <tag language="Français" />
+  </tags>
+  <strings>
+    <string id="ieJye6ml10N" text="Paramètres"/>
+    <string id="ieJye6ml8N" text="Assimilation Graduelle"/>
+    <string id="ieJye6ml11N" text="Facteur de Resistance à l'Assimilation"/>
+    <string id="ieJye6ml12N" text="(Par Défaut oui) La culture va graduellement changer vers la nouvelle culture"/>
+    <string id="ieJye6ml13N" text="(Par Défaut 45) Le facteur de résistance d'une culture pour changer à une autre. Une résistance plus élevée réduira la vitesse de changement vers la nouvelle culture"/>
+    <string id="ieJye6ml14N" text="(Par Défaut 5) Plus d'influence de culture pour le/la propriétaire de la ville ou du fort"/>
+    <string id="ieJye6ml15N" text="(Par Défaut 30) Distance pour laquelle la ville/fort est impacté par la culture des villes/forts des alentours"/>
+    <string id="ieJye6ml16N" text="(Par Défaut vrai) Les villes/forts liés via du commerce s'enfluencent mutuellement"/>
+    <string id="ieJye6ml17N" text="(Par Défaut faux) Seulement les villes/forts du royaume du Joueur changent de culture"/>
+    <string id="ieJye6ml18N" text="(Par Défaut vrai) QUand une ville change de culture, activer cette option changera la culture des notables qui y résident (Cela affectera les troupes qui pourront y être recrutés, mais ne changera pas celle des troupes déjà présentes)."/>
+    <string id="ieJye6ml19N" text="Force d'Influence du Propriétaire"/>
+    <string id="ieJye6ml20N" text="Facteurs de Changement de Culture"/>
+    <string id="ieJye6ml21N" text="Distance d'Influence des Villes/Forts"/>
+    <string id="ieJye6ml22N" text="Influence pour Ville/Forts Reliés"/>
+    <string id="ieJye6ml23N" text="Changer la Culture du Royaume du Joueur Seulement"/>
+    <string id="ieJye6ml24N" text="Changer la Culture des Notables"/>
+  </strings>
+</base>

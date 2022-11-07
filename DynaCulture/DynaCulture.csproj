@@ -88,6 +88,9 @@
     <Compile Include="View\UpdateTooltipPatch.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ModuleData\Languages\EN\sta_strings.xml" />
+    <Content Include="ModuleData\Languages\FR\language_data.xml" />
+    <Content Include="ModuleData\Languages\FR\sta_strings.xml" />
     <Content Include="SubModule.xml" />
   </ItemGroup>
   <ItemGroup />
@@ -97,4 +100,7 @@
     <Copy SourceFiles="$(ProjectDir)\SubModule.xml" DestinationFolder="$(MOD_FOLDER)" />
     <Copy SourceFiles="$(MOUNT_AND_BLADE_DIR)Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv5.dll" DestinationFolder="$(MOD_FOLDER)\bin\Win64_Shipping_Client\" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(ProjectDir)ModuleData" "$(MOD_FOLDER)ModuleData\" /E /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
