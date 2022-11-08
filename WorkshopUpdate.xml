@@ -6,7 +6,7 @@
     <UpdateItem>
         <ModuleFolder Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DynaCulture"/>
         <!-- A direct path of your module -->   
-        <ChangeNotes Value="New crash fix" />
+        <ChangeNotes Value="Another crash fix" />
         <!-- Insert patch notes -->
         <Tags> 
             <!-- You can use the following tags: -->

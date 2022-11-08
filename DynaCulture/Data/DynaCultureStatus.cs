@@ -339,8 +339,12 @@ namespace DynaCulture.Data
             {
                 if (currentInfluences.ElementAt(x).Value < 1m / (decimal)Math.Pow(10, 3))
                 {
-                    PreviousInfluences.Remove(currentInfluences.ElementAt(x).Key);
-                    TargetInfluences.Remove(currentInfluences.ElementAt(x).Key);
+                    if(PreviousInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
+                        PreviousInfluences.Remove(currentInfluences.ElementAt(x).Key);
+
+                    if(TargetInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
+                        TargetInfluences.Remove(currentInfluences.ElementAt(x).Key);
+
                     currentInfluences.Remove(currentInfluences.ElementAt(x).Key);
                     x--;
                 }
