@@ -252,6 +252,17 @@ namespace DynaCulture.Data
         /// <returns></returns>
         CultureObject getTopCulture()
         {
+            if(CurrentInfluences.Count == 0)
+            {
+                recalculateInfluencers(true);
+                CurrentInfluences = TargetInfluences;
+
+                if (CurrentInfluences.Count == 0)
+                {
+                    CurrentInfluences.Add(Settlement.Find(settlementId).OwnerClan.Kingdom.Culture.StringId, 1);
+                }
+            }
+
             var top = CurrentInfluences.OrderByDescending(x => x.Value).First();
 
             // Settle ties...
