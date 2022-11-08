@@ -2,17 +2,17 @@
 <Module>
 	<Name value="DynaCulture"/>
 	<Id value="DynaCulture"/>
-	<Version value="v1.4.2"/>
+	<Version value="v1.4.3"/>
 	<DefaultModule value="false"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
   	<Official value="false"/>
 	<DependedModules>
-		<DependedModule Id="Native" DependentVersion="v1.0.0"/>
-		<DependedModule Id="SandBoxCore" DependentVersion="v1.0.0"/>
-		<DependedModule Id="Sandbox" DependentVersion="v1.0.0"/>
-		<DependedModule Id="CustomBattle" DependentVersion="v1.0.0"/>
-		<DependedModule Id="StoryMode" DependentVersion="v1.0.0"/>
+		<DependedModule Id="Native" DependentVersion="v1.0.1"/>
+		<DependedModule Id="SandBoxCore" DependentVersion="v1.0.1"/>
+		<DependedModule Id="Sandbox" DependentVersion="v1.0.1"/>
+		<DependedModule Id="CustomBattle" DependentVersion="v1.0.1"/>
+		<DependedModule Id="StoryMode" DependentVersion="v1.0.1"/>
 		<DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.2.2.138"/>
 	</DependedModules>
 	<SubModules>
