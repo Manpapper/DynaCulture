@@ -337,6 +337,7 @@ namespace DynaCulture.Data
             // Clear out no-influence cultures ( culture < 0.01 )
             for (int x = 0; x < currentInfluences.Count; x++)
             {
+                //Remove current influence where influence is less than 0.001
                 if (currentInfluences.ElementAt(x).Value < 1m / (decimal)Math.Pow(10, 3))
                 {
                     if(PreviousInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
@@ -344,6 +345,16 @@ namespace DynaCulture.Data
 
                     if(TargetInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
                         TargetInfluences.Remove(currentInfluences.ElementAt(x).Key);
+
+                    currentInfluences.Remove(currentInfluences.ElementAt(x).Key);
+                    x--;
+                }
+
+                //Remove current influence which are no more in target
+                if (!TargetInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
+                {
+                    if (PreviousInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
+                        PreviousInfluences.Remove(currentInfluences.ElementAt(x).Key);
 
                     currentInfluences.Remove(currentInfluences.ElementAt(x).Key);
                     x--;
