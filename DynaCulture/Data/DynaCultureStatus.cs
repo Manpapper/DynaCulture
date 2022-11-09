@@ -342,10 +342,9 @@ namespace DynaCulture.Data
 
         private void RemoveNonRevelentCulture(Dictionary<string, decimal> currentInfluences)
         {
-            // Clear out no-influence cultures ( culture < 0.01 )
+            //Remove current influence where influence is less than 0.001
             for (int x = 0; x < currentInfluences.Count; x++)
-            {
-                //Remove current influence where influence is less than 0.001
+            {                
                 if (currentInfluences.ElementAt(x).Value < 1m / (decimal)Math.Pow(10, 3))
                 {
                     if(PreviousInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
@@ -357,8 +356,11 @@ namespace DynaCulture.Data
                     currentInfluences.Remove(currentInfluences.ElementAt(x).Key);
                     x--;
                 }
+            }
 
-                //Remove current influence which are no more in target
+            //Remove current influence which are no more in target
+            for (int x = 0; x < currentInfluences.Count; x++)
+            {                
                 if (!TargetInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
                 {
                     if (PreviousInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))

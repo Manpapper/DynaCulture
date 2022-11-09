@@ -95,8 +95,8 @@ namespace DynaCulture.Util
 
         public static bool IsPlayerOwner(Settlement settlement)
         {
-            if (settlement.Owner != null && settlement.Owner.IsHumanPlayerCharacter)
-                return settlement.Owner.IsHumanPlayerCharacter;
+            if (settlement.OwnerClan != null && settlement.OwnerClan.Leader != null && settlement.OwnerClan.Leader.IsHumanPlayerCharacter)
+                return settlement.OwnerClan.Leader.IsHumanPlayerCharacter;
             else
                 return false;
         }
