@@ -303,8 +303,6 @@ namespace DynaCulture.Data
             {
                 DynaCultureUtils.ChangeSettlementCulture(settlement, topCulture);
             }
-
-            DynaCultureUtils.ChangeSettlementNotablesCulture(settlement, topCulture);
         }
 
         /// <summary>

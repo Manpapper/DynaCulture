@@ -33,7 +33,7 @@ namespace DynaCulture.Settings
         [SettingPropertyGroup("{=ieJye6ml20N}Culture Influence")]
         public int OwnerInfluenceStrength { get; set; } = 5;
 
-        [SettingPropertyBool("{=ieJye6ml29N}Governor Influence Player Settlement Only", HintText = "{=ieJye6ml28N}(Default true) Governer culture will only affect player settlement", Order = 1, RequireRestart = false)]
+        [SettingPropertyBool("{=ieJye6ml29N}Governor Influence Player Settlement Only", HintText = "{=ieJye6ml28N}(Default true) Governor culture will only affect player settlement", Order = 1, RequireRestart = false)]
         [SettingPropertyGroup("{=ieJye6ml27N}Governor Influence")]
         public bool GovernorCultureInfluencePlayerSettlementOnly { get; set; } = true;
 
