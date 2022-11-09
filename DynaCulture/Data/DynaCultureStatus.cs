@@ -192,6 +192,16 @@ namespace DynaCulture.Data
                     influencers[ownerCulture] += ownerInfluence;
             }
 
+            //calculate the influence cause by governors
+            if (DynaCultureSettings.Instance.GovernorCultureInfluencePlayerSettlementOnly && DynaCultureUtils.IsPlayerOwner(settlement))
+            {
+                sum += CalculateGovernorInfluence(settlement, influencers);
+            }
+            else if (DynaCultureSettings.Instance.GovernorCultureInfluencePlayerSettlementOnly == false)
+            {
+                sum += CalculateGovernorInfluence(settlement, influencers);
+            }
+
             // foreach influencing culture, calculate the percent of total influence
             bool didTargetsChange = false;
             foreach (var pair in influencers)
@@ -360,6 +370,28 @@ namespace DynaCulture.Data
                     x--;
                 }
             }
+        }
+
+        private int CalculateGovernorInfluence(Settlement settlement, Dictionary<CultureObject, int> influencers)
+        {
+            int governorInfluence = 0;
+
+            //calculate the influence cause by governors
+            if (DynaCultureSettings.Instance.GovernorInfluenceStrength != 0)
+            {
+                var governorCulture = DynaCultureUtils.GetGovernorCulture(settlement);
+                if (governorCulture != null)
+                {
+                    governorInfluence = BASE_INFLUENCE * DynaCultureSettings.Instance.GovernorInfluenceStrength;
+
+                    if (!influencers.ContainsKey(governorCulture))
+                        influencers.Add(governorCulture, governorInfluence);
+                    else
+                        influencers[governorCulture] += governorInfluence;
+                }
+            }
+
+            return governorInfluence;
         }
     }
 }

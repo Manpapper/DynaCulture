@@ -15,5 +15,7 @@ namespace DynaCulture.Settings
         public bool TradeLinkedInfluence { get; set; } = true;
         public bool PlayerKingdomOnly { get; set; } = false;
         public bool ChangeNotablesCulture { get; set; } = true;
+        public int GovernorInfluenceStrength { get; set; } = 0;
+        public bool GovernorCultureInfluencePlayerSettlementOnly { get; set; } = true;
     }
 }

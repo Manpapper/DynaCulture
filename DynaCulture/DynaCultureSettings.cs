@@ -18,6 +18,8 @@ namespace DynaCulture
         public bool TradeLinkedInfluence { get => _provider.TradeLinkedInfluence; set => _provider.TradeLinkedInfluence = value; }
         public bool PlayerKingdomOnly { get => _provider.PlayerKingdomOnly; set => _provider.PlayerKingdomOnly = value; }
         public bool ChangeNotablesCulture { get => _provider.ChangeNotablesCulture; set => _provider.ChangeNotablesCulture = value; }
+        public int GovernorInfluenceStrength { get => _provider.GovernorInfluenceStrength; set => _provider.GovernorInfluenceStrength = value; }
+        public bool GovernorCultureInfluencePlayerSettlementOnly { get => _provider.GovernorCultureInfluencePlayerSettlementOnly; set => _provider.GovernorCultureInfluencePlayerSettlementOnly = value; }
 
         static DynaCultureSettings _instance;
         public static DynaCultureSettings Instance

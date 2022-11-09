@@ -29,9 +29,17 @@ namespace DynaCulture.Settings
         [SettingPropertyGroup("{=ieJye6ml8N}Gradual Assimilation")]
         public int AssimilationDelay { get; set; } = 45;
 
-        [SettingPropertyInteger("{=ieJye6ml19N}Owner Kingdom Influence Strength", 0, 20, HintText = "{=ieJye6ml14N}(Default 5) Extra influence for the owner of the settlement", Order = 1, RequireRestart = false)]
+        [SettingPropertyInteger("{=ieJye6ml19N}Owner Kingdom Influence Strength", 0, 50, HintText = "{=ieJye6ml14N}(Default 5) Extra influence for the owner of the settlement", Order = 1, RequireRestart = false)]
         [SettingPropertyGroup("{=ieJye6ml20N}Culture Influence")]
         public int OwnerInfluenceStrength { get; set; } = 5;
+
+        [SettingPropertyBool("{=ieJye6ml29N}Governor Influence Player Settlement Only", HintText = "{=ieJye6ml28N}(Default true) Governer culture will only affect player settlement", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("{=ieJye6ml27N}Governor Influence")]
+        public bool GovernorCultureInfluencePlayerSettlementOnly { get; set; } = true;
+
+        [SettingPropertyInteger("{=ieJye6ml25N}Governor Influence Strength", 0, 50, HintText = "{=ieJye6ml26N}(Default 0 (The governor culture doesn't influence the settlement culture)) Allow the governor culture to influence the culture of the settlement it's assigned to. If you want to change city culture to the one of your governor you probably want a high value (30 to max) if the settlement is surround by settlements with the same culture (if you have high owner influence it might conflict)", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("{=ieJye6ml27N}Governor Influence")]
+        public int GovernorInfluenceStrength { get; set; } = 0;
 
         [SettingPropertyInteger("{=ieJye6ml21N}Settlement Influence Range", 1, 60, HintText = "{=ieJye6ml15N}(Default 30) Geographical range to check for influence from surrounding settlements", Order = 1, RequireRestart = false)]
         [SettingPropertyGroup("{=ieJye6ml20N}Culture Influence")]

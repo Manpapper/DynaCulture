@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<base xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-      xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/BUTR/Bannerlord.XmlSchemas/master/ModuleLanguage.xsd" >
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
     <tag language="Français" />
   </tags>
@@ -10,16 +9,22 @@
     <string id="ieJye6ml11N" text="Facteur de Resistance à l'Assimilation"/>
     <string id="ieJye6ml12N" text="(Par Défaut oui) La culture va graduellement changer vers la nouvelle culture"/>
     <string id="ieJye6ml13N" text="(Par Défaut 45) Le facteur de résistance d'une culture pour changer à une autre. Une résistance plus élevée réduira la vitesse de changement vers la nouvelle culture"/>
-    <string id="ieJye6ml14N" text="(Par Défaut 5) Plus d'influence de culture pour le/la propriétaire de la ville ou du fort"/>
-    <string id="ieJye6ml15N" text="(Par Défaut 30) Distance pour laquelle la ville/fort est impacté par la culture des villes/forts des alentours"/>
-    <string id="ieJye6ml16N" text="(Par Défaut vrai) Les villes/forts liés via du commerce s'enfluencent mutuellement"/>
-    <string id="ieJye6ml17N" text="(Par Défaut faux) Seulement les villes/forts du royaume du Joueur changent de culture"/>
-    <string id="ieJye6ml18N" text="(Par Défaut vrai) QUand une ville change de culture, activer cette option changera la culture des notables qui y résident (Cela affectera les troupes qui pourront y être recrutés, mais ne changera pas celle des troupes déjà présentes)."/>
-    <string id="ieJye6ml19N" text="Force d'Influence du Propriétaire"/>
+    <string id="ieJye6ml14N" text="(Par Défaut 5) Plus d'influence de culture pour le/la propriétaire du fief"/>
+    <string id="ieJye6ml15N" text="(Par Défaut 30) Distance pour laquelle le fief est impacté par la culture des fiefs des alentours"/>
+    <string id="ieJye6ml16N" text="(Par Défaut vrai) Les fiefs liés via du commerce s'enfluencent mutuellement"/>
+    <string id="ieJye6ml17N" text="(Par Défaut faux) Seulement les fiefs du royaume du Joueur changent de culture"/>
+    <string id="ieJye6ml18N" text="(Par Défaut vrai) Quand un fief change de culture, activer cette option changera la culture des notables qui y résident (Cela affectera les troupes qui pourront y être recrutés, mais ne changera pas celle des troupes déjà présentes)."/>
+    <string id="ieJye6ml19N" text="Influence de la Culture du Propriétaire"/>
     <string id="ieJye6ml20N" text="Facteurs de Changement de Culture"/>
-    <string id="ieJye6ml21N" text="Distance d'Influence des Villes/Forts"/>
-    <string id="ieJye6ml22N" text="Influence pour Ville/Forts Reliés"/>
+    <string id="ieJye6ml21N" text="Distance d'Influence des Fiefs"/>
+    <string id="ieJye6ml22N" text="Influence pour Fiefs Reliés"/>
     <string id="ieJye6ml23N" text="Changer la Culture du Royaume du Joueur Seulement"/>
     <string id="ieJye6ml24N" text="Changer la Culture des Notables"/>
+    <string id="ieJye6ml25N" text="Influence de la Culture du Gouverneur"/>
+    <string id="ieJye6ml26N" text="(Par Défaut 0 (La culture du gouverneur n'influence pas le fief)) Permet à la culture du gouverneur d'influencer la culture du fief auquel il est assigné. Si vous souhaitez changer la culture du fief à celle de votre gouveneur, une forte valeur est recommandée ( 30 ou le max) si le fief est entouré par des villes/villages/forts ayant la même culture. Si l'influence du propriétaire est élevé cela pourrait rentrer en conflit avec ce paramètre s'ils n'ont pas la même culture"/>
+    <string id="ieJye6ml27N" text="Influence Gouverneur"/>
+    <string id="ieJye6ml28N" text="(Par Défaut vrai) La culture du gouverneur n'affecte que les fiefs du joueur"/>
+    <string id="ieJye6ml29N" text="Influence du Gouverneur pour les Fiefs du Joueur Seulement"/>
+
   </strings>
 </base>

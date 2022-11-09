@@ -70,7 +70,6 @@ namespace DynaCulture.Util
             }
         }
 
-
         public static CultureObject GetOwnerCulture(Settlement settlement)
         {
             if (settlement.OwnerClan.Kingdom != null)
@@ -80,6 +79,26 @@ namespace DynaCulture.Util
             else
                 return settlement.Culture;
         }
+        
+        public static CultureObject GetGovernorCulture(Settlement settlement)
+        {
+            if (settlement.IsTown || settlement.IsCastle)
+            {
+                if (settlement.Town.Governor != null && settlement.Town.Governor.Culture != null)
+                    return settlement.Town.Governor.Culture;
+                else
+                    return null;
+            }
+            else
+                return null;            
+        }
 
+        public static bool IsPlayerOwner(Settlement settlement)
+        {
+            if (settlement.Owner != null && settlement.Owner.IsHumanPlayerCharacter)
+                return settlement.Owner.IsHumanPlayerCharacter;
+            else
+                return false;
+        }
     }
 }

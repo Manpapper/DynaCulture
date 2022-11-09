@@ -21,5 +21,9 @@ namespace DynaCulture.Settings
         bool PlayerKingdomOnly { get; set; }
 
         bool ChangeNotablesCulture { get; set; }
+
+        int GovernorInfluenceStrength { get; set; }
+
+        bool GovernorCultureInfluencePlayerSettlementOnly { get; set; }
     }
 }
