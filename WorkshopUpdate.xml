@@ -6,8 +6,7 @@
     <UpdateItem>
         <ModuleFolder Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DynaCulture"/>
         <!-- A direct path of your module -->   
-        <ChangeNotes Value="v1.5.0 : You can now choose if you want governor culture to influence settlement culture (disable by default)
-I had to change some mod settings so you may have lost custom settings for this mod (reset to default)" />
+        <ChangeNotes Value="v1.5.2 : Another crash fix" />
         <!-- Insert patch notes -->
         <Tags> 
             <!-- You can use the following tags: -->

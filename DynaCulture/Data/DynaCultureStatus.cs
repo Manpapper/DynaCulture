@@ -343,31 +343,29 @@ namespace DynaCulture.Data
         private void RemoveNonRevelentCulture(Dictionary<string, decimal> currentInfluences)
         {
             //Remove current influence where influence is less than 0.001
-            for (int x = 0; x < currentInfluences.Count; x++)
+            for (int i = currentInfluences.Count - 1; i >= 0; i--)
             {                
-                if (currentInfluences.ElementAt(x).Value < 1m / (decimal)Math.Pow(10, 3))
+                if (currentInfluences.ElementAt(i).Value < 1m / (decimal)Math.Pow(10, 3))
                 {
-                    if(PreviousInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
-                        PreviousInfluences.Remove(currentInfluences.ElementAt(x).Key);
+                    if(PreviousInfluences.ContainsKey(currentInfluences.ElementAt(i).Key))
+                        PreviousInfluences.Remove(currentInfluences.ElementAt(i).Key);
 
-                    if(TargetInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
-                        TargetInfluences.Remove(currentInfluences.ElementAt(x).Key);
+                    if(TargetInfluences.ContainsKey(currentInfluences.ElementAt(i).Key))
+                        TargetInfluences.Remove(currentInfluences.ElementAt(i).Key);
 
-                    currentInfluences.Remove(currentInfluences.ElementAt(x).Key);
-                    x--;
+                    currentInfluences.Remove(currentInfluences.ElementAt(i).Key);
                 }
             }
 
             //Remove current influence which are no more in target
-            for (int x = 0; x < currentInfluences.Count; x++)
+            for (int i = currentInfluences.Count - 1; i >= 0; i--)
             {                
-                if (!TargetInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
+                if (!TargetInfluences.ContainsKey(currentInfluences.ElementAt(i).Key))
                 {
-                    if (PreviousInfluences.ContainsKey(currentInfluences.ElementAt(x).Key))
-                        PreviousInfluences.Remove(currentInfluences.ElementAt(x).Key);
+                    if (PreviousInfluences.ContainsKey(currentInfluences.ElementAt(i).Key))
+                        PreviousInfluences.Remove(currentInfluences.ElementAt(i).Key);
 
-                    currentInfluences.Remove(currentInfluences.ElementAt(x).Key);
-                    x--;
+                    currentInfluences.Remove(currentInfluences.ElementAt(i).Key);
                 }
             }
         }
