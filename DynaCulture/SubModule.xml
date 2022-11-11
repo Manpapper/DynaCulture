@@ -2,7 +2,7 @@
 <Module>
 	<Name value="DynaCulture"/>
 	<Id value="DynaCulture"/>
-	<Version value="v1.5.2"/>
+	<Version value="v1.5.4"/>
 	<DefaultModule value="false"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
@@ -13,7 +13,7 @@
 		<DependedModule Id="Sandbox" DependentVersion="v1.0.1"/>
 		<DependedModule Id="CustomBattle" DependentVersion="v1.0.1"/>
 		<DependedModule Id="StoryMode" DependentVersion="v1.0.1"/>
-		<DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.2.2.138"/>
+		<DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.2.2.140"/>
 	</DependedModules>
 	<SubModules>
 		<SubModule>

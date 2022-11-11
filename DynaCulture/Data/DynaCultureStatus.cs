@@ -77,6 +77,12 @@ namespace DynaCulture.Data
         /// Every day this settlement will progress its CurrentInfluence towards its TargetInfluence
         /// </summary>
         public void OnDailyTick()
+        {      
+            calculateInfluenceChanges();
+            applyCulture();
+        }
+
+        private void calculateInfluenceChanges()
         {
             int influenceSum = recalculateInfluencers(false);
 
@@ -123,9 +129,8 @@ namespace DynaCulture.Data
 
             }
             else
-                CurrentInfluences = TargetInfluences;
-
-            applyCulture();
+                //change CurrentInfluences with TargetInfluences
+                CurrentInfluences = new Dictionary<string, decimal>(TargetInfluences);
         }
 
         public decimal GetPreviousInfluenceForCulture(string culture)
@@ -264,8 +269,11 @@ namespace DynaCulture.Data
         {
             if(CurrentInfluences.Count == 0)
             {
-                recalculateInfluencers(true);
-                CurrentInfluences = TargetInfluences;
+                recalculateInfluencers(false);
+                calculateInfluenceChanges();
+
+                if (CurrentInfluences == null)
+                    CurrentInfluences = new Dictionary<string, decimal>();
 
                 if (CurrentInfluences.Count == 0)
                 {
@@ -342,30 +350,30 @@ namespace DynaCulture.Data
 
         private void RemoveNonRevelentCulture(Dictionary<string, decimal> currentInfluences)
         {
-            //Remove current influence where influence is less than 0.001
+
             for (int i = currentInfluences.Count - 1; i >= 0; i--)
-            {                
+            {
+                string currentInfluenceKey = currentInfluences.ElementAt(i).Key;
+
+                //Remove current influence where influence is less than 0.001
                 if (currentInfluences.ElementAt(i).Value < 1m / (decimal)Math.Pow(10, 3))
                 {
-                    if(PreviousInfluences.ContainsKey(currentInfluences.ElementAt(i).Key))
-                        PreviousInfluences.Remove(currentInfluences.ElementAt(i).Key);
+                    if (PreviousInfluences.ContainsKey(currentInfluenceKey))
+                        PreviousInfluences.Remove(currentInfluenceKey);
 
-                    if(TargetInfluences.ContainsKey(currentInfluences.ElementAt(i).Key))
-                        TargetInfluences.Remove(currentInfluences.ElementAt(i).Key);
+                    if (TargetInfluences.ContainsKey(currentInfluenceKey))
+                        TargetInfluences.Remove(currentInfluenceKey);
 
-                    currentInfluences.Remove(currentInfluences.ElementAt(i).Key);
+                    currentInfluences.Remove(currentInfluenceKey);
                 }
-            }
 
-            //Remove current influence which are no more in target
-            for (int i = currentInfluences.Count - 1; i >= 0; i--)
-            {                
-                if (!TargetInfluences.ContainsKey(currentInfluences.ElementAt(i).Key))
+                //Remove current influence which are no more in target
+                if (!TargetInfluences.ContainsKey(currentInfluenceKey))
                 {
-                    if (PreviousInfluences.ContainsKey(currentInfluences.ElementAt(i).Key))
-                        PreviousInfluences.Remove(currentInfluences.ElementAt(i).Key);
+                    if (PreviousInfluences.ContainsKey(currentInfluenceKey))
+                        PreviousInfluences.Remove(currentInfluenceKey);
 
-                    currentInfluences.Remove(currentInfluences.ElementAt(i).Key);
+                    currentInfluences.Remove(currentInfluenceKey);
                 }
             }
         }
