@@ -8,6 +8,7 @@ using System.IO;
 using TaleWorlds.CampaignSystem;
 
 using DynaCulture.Data;
+using System.Text.RegularExpressions;
 
 namespace DynaCulture.Util
 {
@@ -47,6 +48,11 @@ namespace DynaCulture.Util
 
         public static string GetSerializedFileName(string characterName)
         {
+            //removing Illegal characters
+            string regexSearch = new string(Path.GetInvalidFileNameChars());
+            Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+            characterName = r.Replace(characterName, "");
+
             return characterName + "_CultureConfig.dat";
         }
     }

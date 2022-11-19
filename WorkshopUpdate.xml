@@ -6,7 +6,8 @@
     <UpdateItem>
         <ModuleFolder Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DynaCulture"/>
         <!-- A direct path of your module -->   
-        <ChangeNotes Value="v1.5.4 : Another crash fix" />
+        <ChangeNotes Value="v1.5.5 : Remove illegal character from character name when saving dynaculture data file (since the character name is use in filename)
+		Deleting DynaCulture data file now reset Notable to default (Mod need to be enable)" />
         <!-- Insert patch notes -->
         <Tags> 
             <!-- You can use the following tags: -->

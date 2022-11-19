@@ -22,7 +22,7 @@ namespace DynaCulture.Util
             }
             
             settlement.Culture = culture;
-            ChangeSettlementNotablesCulture(settlement, culture);
+            ChangeSettlementNotablesCulture(settlement, culture, false);
 
             // Attempt to set attached villages
             if (settlement.BoundVillages != null)
@@ -33,15 +33,15 @@ namespace DynaCulture.Util
                         continue;
 
                     attached.Settlement.Culture = culture;
-                    ChangeSettlementNotablesCulture(attached.Settlement, culture);
+                    ChangeSettlementNotablesCulture(attached.Settlement, culture, false);
                 }
             }
         }
 
-        public static void ChangeSettlementNotablesCulture(Settlement settlement, CultureObject culture)
+        public static void ChangeSettlementNotablesCulture(Settlement settlement, CultureObject culture, bool forceChangeCulture)
         {
             //Update Notable culture to change the type of recruit/volunteer
-            if (DynaCultureSettings.Instance.ChangeNotablesCulture)
+            if (DynaCultureSettings.Instance.ChangeNotablesCulture || forceChangeCulture)
             {
                 ChangeNotablesCulture(settlement.Notables.ToList(), culture);
 

@@ -57,6 +57,9 @@ namespace DynaCulture.Data
 
                 CurrentInfluences = new Dictionary<string, decimal>();
                 CurrentInfluences.Add(settlement.Culture.StringId, 1m);
+
+                //Reset the Notable culture
+                DynaCultureUtils.ChangeSettlementNotablesCulture(settlement, settlement.Culture, true);
             }
 
             // There was no previous influence stored in the save file
