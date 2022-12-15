@@ -257,7 +257,7 @@ namespace DynaCulture.Data
         public static void initializeCultures()
         {
             _cachedCultures = new Dictionary<string, CultureObject>();
-            foreach (var culture in Campaign.Current.Kingdoms.Where(x => x.IsKingdomFaction && x.Culture != null).Select(x => x.Culture).Distinct())
+            foreach (var culture in Campaign.Current.Settlements.Where(x => x.Culture != null && x.IsHideout == false).Select(x => x.Culture).Distinct())
             {
                 if (!_cachedCultures.ContainsKey(culture.StringId))
                     _cachedCultures.Add(culture.StringId, culture);
