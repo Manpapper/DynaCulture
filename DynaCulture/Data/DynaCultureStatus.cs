@@ -262,6 +262,12 @@ namespace DynaCulture.Data
                 if (!_cachedCultures.ContainsKey(culture.StringId))
                     _cachedCultures.Add(culture.StringId, culture);
             }
+
+            foreach (var culture in Campaign.Current.Kingdoms.Where(x => x.IsKingdomFaction && x.Culture != null).Select(x => x.Culture).Distinct())
+            {
+                if (!_cachedCultures.ContainsKey(culture.StringId))
+                    _cachedCultures.Add(culture.StringId, culture);
+            }
         }
 
         /// <summary>
@@ -298,9 +304,33 @@ namespace DynaCulture.Data
                     top = tied.OrderBy(x => x.Key).First();
             }
 
-            var topCulture = CachedCultures[top.Key];
+            CultureObject topCulture = GetCulture(top.Key);
 
             return topCulture;
+        }
+
+        private CultureObject GetCulture(string culture)
+        {
+            CultureObject cultureObject = null;
+
+            if (CachedCultures.ContainsKey(culture))
+            {
+                cultureObject = CachedCultures[culture];
+            }
+            else
+            {
+                //We update culture list in case a new culture have been created
+                initializeCultures();
+                if (CachedCultures.ContainsKey(culture))
+                {
+                    cultureObject = CachedCultures[culture];
+                }
+                else
+                {
+                    cultureObject = CachedCultures.First().Value;
+                }
+            }
+            return cultureObject;
         }
 
         /// <summary>
