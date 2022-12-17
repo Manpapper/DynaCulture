@@ -6,7 +6,7 @@
     <UpdateItem>
         <ModuleFolder Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DynaCulture"/>
         <!-- A direct path of your module -->   
-        <ChangeNotes Value="v1.5.7 : Fix a crash when a culture is added during the game" />
+        <ChangeNotes Value="v1.5.8 : The real fix for the crash which occurs when a culture is added during the game" />
         <!-- Insert patch notes -->
         <Tags> 
             <!-- You can use the following tags: -->
