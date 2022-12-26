@@ -248,7 +248,12 @@ namespace DynaCulture.Data
         /// <returns></returns>
         decimal getTopCultureValue()
         {
-            return CurrentInfluences[getTopCulture().StringId];
+            string topCultureId = getTopCulture().StringId;
+
+            if(CurrentInfluences.ContainsKey(topCultureId))
+                return CurrentInfluences[getTopCulture().StringId];
+
+            return 1;
         }
 
         /// <summary>
@@ -309,21 +314,20 @@ namespace DynaCulture.Data
 
             if (CachedCultures.ContainsKey(culture))
             {
+                return cultureObject = CachedCultures[culture];
+            }
+
+            //We update culture list in case a new culture have been created
+            initializeCultures();
+            if (CachedCultures.ContainsKey(culture))
+            {
                 cultureObject = CachedCultures[culture];
             }
             else
             {
-                //We update culture list in case a new culture have been created
-                initializeCultures();
-                if (CachedCultures.ContainsKey(culture))
-                {
-                    cultureObject = CachedCultures[culture];
-                }
-                else
-                {
-                    cultureObject = CachedCultures.First().Value;
-                }
+                cultureObject = CachedCultures.First().Value;
             }
+            
             return cultureObject;
         }
 
