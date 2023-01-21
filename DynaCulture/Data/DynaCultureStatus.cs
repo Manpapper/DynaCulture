@@ -6,6 +6,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
 using DynaCulture.Util;
+using TaleWorlds.CampaignSystem.Map;
 
 namespace DynaCulture.Data
 {
@@ -158,8 +159,18 @@ namespace DynaCulture.Data
             // foreach nearby settlement, sum up the influence of each culture type
             List<Settlement> influencingSettlements = new List<Settlement>();
 
-            // Geographically close settlements
-            influencingSettlements.AddRange(Settlement.FindSettlementsAroundPosition(settlement.Position2D, DynaCultureSettings.Instance.SettlementInfluenceRange).Where(x => x.IsVillage || x.IsCastle || x.IsTown));
+            LocatableSearchData<Settlement> ls = Settlement.StartFindingLocatablesAroundPosition(settlement.Position2D, DynaCultureSettings.Instance.SettlementInfluenceRange);
+            Settlement currentSettlement = null;
+            do
+            {
+                currentSettlement = Settlement.FindNextLocatable(ref ls);
+                if(currentSettlement != null && (currentSettlement.IsVillage || currentSettlement.IsCastle || currentSettlement.IsTown))
+                {
+                    // Geographically close settlements
+                    influencingSettlements.Add(currentSettlement);
+                }
+
+            } while (currentSettlement != null);
 
             if (DynaCultureSettings.Instance.TradeLinkedInfluence)
             {
