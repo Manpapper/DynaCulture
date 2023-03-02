@@ -20,6 +20,7 @@ namespace DynaCulture
         public bool ChangeNotablesCulture { get => _provider.ChangeNotablesCulture; set => _provider.ChangeNotablesCulture = value; }
         public int GovernorInfluenceStrength { get => _provider.GovernorInfluenceStrength; set => _provider.GovernorInfluenceStrength = value; }
         public bool GovernorCultureInfluencePlayerSettlementOnly { get => _provider.GovernorCultureInfluencePlayerSettlementOnly; set => _provider.GovernorCultureInfluencePlayerSettlementOnly = value; }
+        public bool ShowInfluencesInDetails { get => _provider.ShowInfluencesInDetails; set => _provider.ShowInfluencesInDetails = value; }
 
         static DynaCultureSettings _instance;
         public static DynaCultureSettings Instance

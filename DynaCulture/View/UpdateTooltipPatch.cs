@@ -32,7 +32,8 @@ namespace DynaCulture.View
                         if (settlement.IsCastle || settlement.IsTown || settlement.IsVillage)
                         {
 
-                            string troopTypesDefinitionLabel = "Troops";
+                            string definitionLabel = "Troops";
+                            bool showInfluencesInDetails = DynaCultureSettings.Instance.ShowInfluencesInDetails;
 
                             List<TooltipProperty> tooltipPropertyMoreInfoList = __instance.TooltipPropertyList.ToList();
 
@@ -41,15 +42,15 @@ namespace DynaCulture.View
 
                             if (influences.Count != 0)
                             {
-                                int indexForInfluence = __instance.TooltipPropertyList.FindIndex(x => x.DefinitionLabel.Equals(troopTypesDefinitionLabel));
+                                int indexForInfluence = __instance.TooltipPropertyList.FindIndex(x => x.DefinitionLabel.Equals(definitionLabel));
                                 if (indexForInfluence == -1)
                                     indexForInfluence = __instance.TooltipPropertyList.Count;
 
                                 if (indexForInfluence >= 0)
                                 {
-                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("Influences", " ", 0, true));
+                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("Influences", " ", 0, showInfluencesInDetails));
                                     indexForInfluence++;
-                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", 0, true, TooltipProperty.TooltipPropertyFlags.RundownSeperator));
+                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", 0, showInfluencesInDetails, TooltipProperty.TooltipPropertyFlags.RundownSeperator));
                                     indexForInfluence++;
 
                                     foreach (KeyValuePair<string, decimal> influence in influences.OrderByDescending(i => i.Value))
@@ -64,11 +65,11 @@ namespace DynaCulture.View
                                         else
                                             culture = influence.Key;
 
-                                        tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty($"{culture}", $"{influenceValue.ToString("0.##")} ({differenceInfluenceValue.ToString("0.##")})", 0, true));
+                                        tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty($"{culture}", $"{influenceValue.ToString("0.##")} ({differenceInfluenceValue.ToString("0.##")})", 0, showInfluencesInDetails));
                                         indexForInfluence++;
                                     }
 
-                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", -1, true));
+                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", -1, showInfluencesInDetails));
                                     indexForInfluence++;
 
                                     __instance.TooltipPropertyList = new MBBindingList<TooltipProperty>();

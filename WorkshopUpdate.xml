@@ -6,7 +6,9 @@
     <UpdateItem>
         <ModuleFolder Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DynaCulture"/>
         <!-- A direct path of your module -->   
-        <ChangeNotes Value="v1.5.8 : The real fix for the crash which occurs when a culture is added during the game" />
+		<ChangeNotes Value="v1.6.1 : Compatibility with v1.1.0
+		Mod option to show influences in main tooltip (without pressing Alt key)
+		OwnerInfluenceStrength default value is now 6 instead of 5" />
         <!-- Insert patch notes -->
         <Tags> 
             <!-- You can use the following tags: -->
@@ -15,7 +17,7 @@
             <!-- Game Mode: Singleplayer, Multiplayer -->
             <!-- Compatible Version: e1.9.0, v1.0.0,... The currently available versions can be found at the Steam Workshop "Browse by Tag" section -->
             <Tag Value="Singleplayer" />
-            <Tag Value="v1.0.2" />
+            <Tag Value="v1.1.0" />
         </Tags>
     </UpdateItem>
 </Tasks>

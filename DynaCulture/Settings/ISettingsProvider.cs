@@ -25,5 +25,6 @@ namespace DynaCulture.Settings
         int GovernorInfluenceStrength { get; set; }
 
         bool GovernorCultureInfluencePlayerSettlementOnly { get; set; }
+        bool ShowInfluencesInDetails { get; set; }
     }
 }

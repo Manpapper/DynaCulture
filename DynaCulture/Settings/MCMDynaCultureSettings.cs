@@ -29,9 +29,9 @@ namespace DynaCulture.Settings
         [SettingPropertyGroup("{=ieJye6ml8N}Gradual Assimilation")]
         public int AssimilationDelay { get; set; } = 45;
 
-        [SettingPropertyInteger("{=ieJye6ml19N}Owner Kingdom Influence Strength", 0, 50, HintText = "{=ieJye6ml14N}(Default 5) Extra influence for the owner of the settlement", Order = 1, RequireRestart = false)]
+        [SettingPropertyInteger("{=ieJye6ml19N}Owner Kingdom Influence Strength", 0, 50, HintText = "{=ieJye6ml14N}(Default 6) Extra influence for the owner of the settlement", Order = 1, RequireRestart = false)]
         [SettingPropertyGroup("{=ieJye6ml20N}Culture Influence")]
-        public int OwnerInfluenceStrength { get; set; } = 5;
+        public int OwnerInfluenceStrength { get; set; } = 6;
 
         [SettingPropertyBool("{=ieJye6ml29N}Governor Influence Player Settlement Only", HintText = "{=ieJye6ml28N}(Default true) Governor culture will only affect player settlement", Order = 1, RequireRestart = false)]
         [SettingPropertyGroup("{=ieJye6ml27N}Governor Influence")]
@@ -56,6 +56,10 @@ namespace DynaCulture.Settings
         [SettingPropertyBool("{=ieJye6ml24N}Change Notables Culture", HintText = "{=ieJye6ml18N}(Default true) When a settlement change culture activating this will change the culture of Notable (It will affect recruit/volunteer type).", Order = 1, RequireRestart = false)]
         [SettingPropertyGroup("{=ieJye6ml10N}Settings")]
         public bool ChangeNotablesCulture { get; set; } = true;
+
+        [SettingPropertyBool("{=ieJye6ml30N}Show Influences In Details", HintText = "{=ieJye6ml31N}(Default true) Show influences in details by pressing Alt key, setting this option to false will show influence in main tooltip (without pressing Alt).", Order = 1, RequireRestart = false)]
+        [SettingPropertyGroup("{=ieJye6ml20N}Culture Influence")]
+        public bool ShowInfluencesInDetails { get; set; } = true;
 
     }
 }
