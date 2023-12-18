@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Module>
-	<Name value="DynaCulture"/>
-	<Id value="DynaCulture"/>
-	<Version value="v1.6.1"/>
-	<DefaultModule value="false"/>
-	<SingleplayerModule value="true"/>
-	<MultiplayerModule value="false"/>
-  	<Official value="false"/>
-	<DependedModules>
-		<DependedModule Id="Native" DependentVersion="v1.1.0"/>
-		<DependedModule Id="SandBoxCore" DependentVersion="v1.1.0"/>
-		<DependedModule Id="Sandbox" DependentVersion="v1.1.0"/>
-		<DependedModule Id="CustomBattle" DependentVersion="v1.1.0"/>
-		<DependedModule Id="StoryMode" DependentVersion="v1.1.0"/>
-		<DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.2.2.145"/>
-	</DependedModules>
-	<SubModules>
-		<SubModule>
-			<Name value="DynaCulture"/>
-			<DLLName value="DynaCulture.dll"/>
-			<SubModuleClassType value="DynaCulture.SubModule"/>
-			<Tags>
-				<Tag key="DedicatedServerType" value="none" />
-				<Tag key="IsNoRenderModeElement" value="false" />
-			</Tags>
-		</SubModule>
-	</SubModules>
+  <Name value="DynaCulture"/>
+  <Id value="DynaCulture"/>
+  <Version value="v1.6.3"/>
+  <DefaultModule value="false"/>
+  <SingleplayerModule value="true"/>
+  <MultiplayerModule value="false"/>
+  <Official value="false"/>
+  <DependedModules>
+    <DependedModule Id="Native" DependentVersion="v1.2.7"/>
+    <DependedModule Id="SandBoxCore" DependentVersion="v1.2.7"/>
+    <DependedModule Id="Sandbox" DependentVersion="v1.2.7"/>
+    <DependedModule Id="CustomBattle" DependentVersion="v1.2.7"/>
+    <DependedModule Id="StoryMode" DependentVersion="v1.2.7"/>
+    <DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.3.0.174"/>
+  </DependedModules>
+  <SubModules>
+    <SubModule>
+      <Name value="DynaCulture"/>
+      <DLLName value="DynaCulture.dll"/>
+      <SubModuleClassType value="DynaCulture.SubModule"/>
+      <Tags>
+        <Tag key="DedicatedServerType" value="none" />
+        <Tag key="IsNoRenderModeElement" value="false" />
+      </Tags>
+    </SubModule>
+  </SubModules>
 </Module>

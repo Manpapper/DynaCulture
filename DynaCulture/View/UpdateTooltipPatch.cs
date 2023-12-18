@@ -18,8 +18,8 @@ namespace DynaCulture.View
         [HarmonyPostfix]
         private static void RefreshPostfix(PropertyBasedTooltipVM __instance)
         {
-            Type _shownType = (Type)__instance.GetType().GetField("_shownType", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(__instance);
-            object[] args = (object[])__instance.GetType().GetField("_typeArgs", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(__instance);
+            Type _shownType = (Type)__instance.GetType().GetField("_invokedType", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(__instance);
+            object[] args = (object[])__instance.GetType().GetField("_invokedArgs", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(__instance);
             
             if (_shownType == typeof(Settlement))
             {
@@ -27,53 +27,39 @@ namespace DynaCulture.View
                 {
                     try
                     {
+                        if (!(_shownType == typeof(Settlement)) || (args[0] == null || !(args[0].GetType() == typeof(Settlement))))
+                            return;
                         Settlement settlement = (Settlement)args[0];
-
                         if (settlement.IsCastle || settlement.IsTown || settlement.IsVillage)
                         {
-
-                            string definitionLabel = "Troops";
-                            bool showInfluencesInDetails = DynaCultureSettings.Instance.ShowInfluencesInDetails;
-
-                            List<TooltipProperty> tooltipPropertyMoreInfoList = __instance.TooltipPropertyList.ToList();
-
-                            //Add Influences to tooltip
-                            Dictionary<string, decimal> influences = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].CurrentInfluences;
-
-                            if (influences.Count != 0)
+                            bool influencesInDetails = DynaCultureSettings.Instance.ShowInfluencesInDetails;
+                            __instance.TooltipPropertyList.ToList<TooltipProperty>();
+                            Dictionary<string, Decimal> currentInfluences = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].CurrentInfluences;
+                            if (currentInfluences.Count > 0)
                             {
-                                int indexForInfluence = __instance.TooltipPropertyList.FindIndex(x => x.DefinitionLabel.Equals(definitionLabel));
-                                if (indexForInfluence == -1)
-                                    indexForInfluence = __instance.TooltipPropertyList.Count;
+                                int num1 = 0;
+                                if (__instance.TooltipPropertyList.Count != 0 && __instance.TooltipPropertyList.Count >= 2)
+                                    num1 = __instance.TooltipPropertyList.Count - 2;
 
-                                if (indexForInfluence >= 0)
+                                if (num1 >= 0)
                                 {
-                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("Influences", " ", 0, showInfluencesInDetails));
-                                    indexForInfluence++;
-                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", 0, showInfluencesInDetails, TooltipProperty.TooltipPropertyFlags.RundownSeperator));
-                                    indexForInfluence++;
-
-                                    foreach (KeyValuePair<string, decimal> influence in influences.OrderByDescending(i => i.Value))
+                                    __instance.TooltipPropertyList.Insert(num1, new TooltipProperty("", "", -1, influencesInDetails));
+                                    num1++;
+                                    __instance.TooltipPropertyList.Insert(num1,new TooltipProperty("Influences", " ", 0, influencesInDetails));
+                                    num1++;
+                                    __instance.TooltipPropertyList.Insert(num1, new TooltipProperty("", "", 0, influencesInDetails, TooltipProperty.TooltipPropertyFlags.RundownSeperator));
+                                    foreach(KeyValuePair<string, Decimal>  currentInfluence in currentInfluences)
                                     {
-                                        decimal previousInfluenceValue = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].GetPreviousInfluenceForCulture(influence.Key) * 100;
-                                        decimal influenceValue = influence.Value * 100;
-                                        decimal differenceInfluenceValue = influenceValue - previousInfluenceValue;
-                                        string culture = String.Empty;
-
-                                        if (influence.Key.Length > 1)
-                                            culture = char.ToUpper(influence.Key[0]) + influence.Key.Substring(1);
-                                        else
-                                            culture = influence.Key;
-
-                                        tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty($"{culture}", $"{influenceValue.ToString("0.##")} ({differenceInfluenceValue.ToString("0.##")})", 0, showInfluencesInDetails));
-                                        indexForInfluence++;
+                                        Decimal num2 = DynaCultureManager.Instance.InfluenceMap[settlement.StringId].GetPreviousInfluenceForCulture(currentInfluence.Key) * 100M;
+                                        Decimal num3 = currentInfluence.Value * 100M;
+                                        Decimal num4 = num3 - num2;
+                                        string empty = string.Empty;
+                                        string str = currentInfluence.Key.Length <= 1 ? currentInfluence.Key : char.ToUpper(currentInfluence.Key[0]).ToString() + currentInfluence.Key.Substring(1);
+                                        num1++;
+                                        __instance.TooltipPropertyList.Insert(num1, new TooltipProperty(str ?? "", num3.ToString("0.##") + " (" + num4.ToString("0.##") + ")", 0, influencesInDetails));
                                     }
-
-                                    tooltipPropertyMoreInfoList.Insert(indexForInfluence, new TooltipProperty("", "", -1, showInfluencesInDetails));
-                                    indexForInfluence++;
-
-                                    __instance.TooltipPropertyList = new MBBindingList<TooltipProperty>();
-                                    __instance.UpdateTooltip(tooltipPropertyMoreInfoList);
+                                    num1++;
+                                    __instance.TooltipPropertyList.Insert(num1, new TooltipProperty("", "", -1, influencesInDetails));
                                 }
                             }
                         }
