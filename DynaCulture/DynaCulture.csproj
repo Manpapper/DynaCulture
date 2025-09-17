@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -75,7 +76,6 @@
     <Compile Include="Data\DynaCultureBehavior.cs" />
     <Compile Include="Data\DynaCultureManager.cs" />
     <Compile Include="Data\DynaCultureStatus.cs" />
-    <Compile Include="Patch\TroopRosterPatch.cs" />
     <Compile Include="Settings\DefaultDynaCultureSettings.cs" />
     <Compile Include="Settings\ISettingsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

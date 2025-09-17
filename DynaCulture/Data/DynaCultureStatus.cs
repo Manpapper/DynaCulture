@@ -159,7 +159,7 @@ namespace DynaCulture.Data
             // foreach nearby settlement, sum up the influence of each culture type
             List<Settlement> influencingSettlements = new List<Settlement>();
 
-            LocatableSearchData<Settlement> ls = Settlement.StartFindingLocatablesAroundPosition(settlement.Position2D, DynaCultureSettings.Instance.SettlementInfluenceRange);
+            LocatableSearchData<Settlement> ls = Settlement.StartFindingLocatablesAroundPosition(settlement.GetPosition2D, DynaCultureSettings.Instance.SettlementInfluenceRange);
             Settlement currentSettlement = null;
             do
             {
