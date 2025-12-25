@@ -6,7 +6,7 @@
     <UpdateItem>
         <ModuleFolder Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DynaCulture"/>
         <!-- A direct path of your module -->   
-		<ChangeNotes Value="v1.7.0: Compatibility with beta v1.3.0" />
+		<ChangeNotes Value="v1.7.1: Compatibility with v1.3.* Also fixed some translation issues" />
         <!-- Insert patch notes -->
         <Tags> 
             <!-- You can use the following tags: -->
@@ -15,7 +15,7 @@
             <!-- Game Mode: Singleplayer, Multiplayer -->
             <!-- Compatible Version: e1.9.0, v1.0.0,... The currently available versions can be found at the Steam Workshop "Browse by Tag" section -->
             <Tag Value="Singleplayer" />
-            <Tag Value="v1.3.0" />
+            <Tag Value="v1.3.12" />
         </Tags>
     </UpdateItem>
 </Tasks>
