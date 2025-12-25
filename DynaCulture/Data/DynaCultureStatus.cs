@@ -7,6 +7,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 
 using DynaCulture.Util;
 using TaleWorlds.CampaignSystem.Map;
+using TaleWorlds.Localization;
 
 namespace DynaCulture.Data
 {
@@ -278,6 +279,24 @@ namespace DynaCulture.Data
                 if (!_cachedCultures.ContainsKey(culture.StringId))
                     _cachedCultures.Add(culture.StringId, culture);
             }
+        }
+
+        /// <summary>
+        /// Return a cultureName which can be resolve into multiple languages (translation)
+        /// </summary>
+        /// <param name="cultureId"></param>
+        /// <returns></returns>
+
+        public static TextObject getCultureNameById(String cultureId)
+        {
+            foreach ( var cachedCulture in _cachedCultures)
+            {
+                if (cachedCulture.Key.Equals(cultureId))
+                {
+                    return cachedCulture.Value.Name;
+                }
+            }
+            return new TextObject("");
         }
 
         /// <summary>

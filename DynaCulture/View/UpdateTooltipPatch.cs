@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using DynaCulture.Data;
+using HarmonyLib;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-
-using HarmonyLib;
-
-using DynaCulture.Data;
+using TaleWorlds.Localization;
 
 namespace DynaCulture.View
 {
@@ -45,7 +44,8 @@ namespace DynaCulture.View
                                 {
                                     __instance.TooltipPropertyList.Insert(num1, new TooltipProperty("", "", -1, influencesInDetails));
                                     num1++;
-                                    __instance.TooltipPropertyList.Insert(num1,new TooltipProperty("Influences", " ", 0, influencesInDetails));
+                                    TextObject influenceText = new TextObject("{=ieJye6ml32N}Influences");
+                                    __instance.TooltipPropertyList.Insert(num1,new TooltipProperty(influenceText.ToString(), " ", 0, influencesInDetails));
                                     num1++;
                                     __instance.TooltipPropertyList.Insert(num1, new TooltipProperty("", "", 0, influencesInDetails, TooltipProperty.TooltipPropertyFlags.RundownSeperator));
                                     foreach(KeyValuePair<string, Decimal>  currentInfluence in currentInfluences)
@@ -54,7 +54,7 @@ namespace DynaCulture.View
                                         Decimal num3 = currentInfluence.Value * 100M;
                                         Decimal num4 = num3 - num2;
                                         string empty = string.Empty;
-                                        string str = currentInfluence.Key.Length <= 1 ? currentInfluence.Key : char.ToUpper(currentInfluence.Key[0]).ToString() + currentInfluence.Key.Substring(1);
+                                        string str = currentInfluence.Key.Length <= 1 ? currentInfluence.Key : DynaCultureStatus.getCultureNameById(currentInfluence.Key).ToString();
                                         num1++;
                                         __instance.TooltipPropertyList.Insert(num1, new TooltipProperty(str ?? "", num3.ToString("0.##") + " (" + num4.ToString("0.##") + ")", 0, influencesInDetails));
                                     }

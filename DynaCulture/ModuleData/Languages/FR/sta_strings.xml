@@ -27,5 +27,6 @@
     <string id="ieJye6ml29N" text="Influence du Gouverneur pour les Fiefs du Joueur Seulement"/>
 	<string id="ieJye6ml30N" text="Affiche les Influences dans les détails"/>
 	<string id="ieJye6ml31N" text="(Par Défaut vrai) Affiche les influences en appuyant sur ALT, changer cette option fera s'afficher les influences dans l'overlay principal (sans appuyer sur Alt)"/>
+	<string id="ieJye6ml32N" text="Influences"/>
   </strings>
 </base>
