@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+      xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/BUTR/Bannerlord.XmlSchemas/master/ModuleLanguage.xsd" >
+  <tags>
+    <tag language="Español (LA)" />
+  </tags>
+  <strings>
+    <string id="ieJye6ml10N" text="Configuración"/>
+    <string id="ieJye6ml8N" text="Asimilación gradual"/>
+    <string id="ieJye6ml11N" text="Factor de resistencia a la asimilación"/>
+    <string id="ieJye6ml12N" text="(Por defecto verdadero) La cultura cambiará gradualmente a la nueva cultura"/>
+    <string id="ieJye6ml13N" text="(Por defecto 45) Factor de resistencia al cambio cultural. Una resistencia mayor ralentiza la velocidad del cambio"/>
+    <string id="ieJye6ml14N" text="(Por defecto 6) Influencia extra para el propietario del asentamiento"/>
+    <string id="ieJye6ml15N" text="(Por defecto 30) Alcance geográfico para comprobar la influencia de los asentamientos cercanos"/>
+    <string id="ieJye6ml16N" text="(Por defecto verdadero) Los asentamientos vinculados por comercio campesino se influenciarán entre sí"/>
+    <string id="ieJye6ml17N" text="(Por defecto falso) Solo los asentamientos del reino del jugador cambiarán de cultura"/>
+    <string id="ieJye6ml18N" text="(Por defecto verdadero) Cuando un asentamiento cambia de cultura, al activar esto también cambiará la cultura de los notables (afectará el tipo de reclutas/voluntarios)."/>
+    <string id="ieJye6ml19N" text="Fuerza de influencia del reino propietario"/>
+    <string id="ieJye6ml20N" text="Influencia cultural"/>
+    <string id="ieJye6ml21N" text="Alcance de influencia del asentamiento"/>
+    <string id="ieJye6ml22N" text="Los asentamientos vinculados generan influencia"/>
+    <string id="ieJye6ml23N" text="Asimilar solo el reino del jugador"/>
+    <string id="ieJye6ml24N" text="Cambiar la cultura de los notables"/>
+    <string id="ieJye6ml25N" text="Fuerza de influencia del gobernador"/>
+    <string id="ieJye6ml26N" text="(Por defecto 0 (la cultura del gobernador no influye en la cultura del asentamiento)) Permite que la cultura del gobernador influya en la cultura del asentamiento asignado. Si querés cambiar la cultura de una ciudad a la del gobernador, probablemente necesites un valor alto (30 al máximo) si el asentamiento está rodeado por asentamientos de la misma cultura (si tenés alta influencia del propietario puede generar conflictos)."/>
+    <string id="ieJye6ml27N" text="Influencia del gobernador"/>
+    <string id="ieJye6ml28N" text="(Por defecto verdadero) La cultura del gobernador solo afectará a los asentamientos del jugador"/>
+    <string id="ieJye6ml29N" text="Influencia del gobernador solo en asentamientos del jugador"/>
+	<string id="ieJye6ml30N" text="Mostrar influencias en detalles"/>
+	<string id="ieJye6ml31N" text="(Por defecto verdadero) Muestra las influencias en detalle al presionar la tecla Alt. Si se desactiva esta opción, la influencia se mostrará en el tooltip principal (sin presionar Alt)."/>
+	<string id="ieJye6ml32N" text="Influencias"/>
+  </strings>
+</base>
