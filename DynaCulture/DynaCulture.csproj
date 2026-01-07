@@ -90,6 +90,8 @@
   <ItemGroup>
     <Content Include="ModuleData\Languages\FR\language_data.xml" />
     <Content Include="ModuleData\Languages\FR\sta_strings.xml" />
+    <Content Include="ModuleData\Languages\SP\language_data.xml" />
+    <Content Include="ModuleData\Languages\SP\sta_strings.xml" />
     <Content Include="ModuleData\Languages\sta_strings.xml" />
     <Content Include="SubModule.xml" />
   </ItemGroup>
