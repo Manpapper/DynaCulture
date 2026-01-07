@@ -200,17 +200,17 @@ namespace DynaCulture.Data
 
             // calculate the influence caused by our owners
             int ownerInfluence = BASE_INFLUENCE * DynaCultureSettings.Instance.OwnerInfluenceStrength;
+            if(ownerInfluence < 1)
+                ownerInfluence = 1;
+
             sum += ownerInfluence;
 
-            if (ownerInfluence > 0)
-            {
-                var ownerCulture = DynaCultureUtils.GetOwnerCulture(settlement);
+            var ownerCulture = DynaCultureUtils.GetOwnerCulture(settlement);
 
-                if (!influencers.ContainsKey(ownerCulture))
-                    influencers.Add(ownerCulture, ownerInfluence);
-                else
-                    influencers[ownerCulture] += ownerInfluence;
-            }
+            if (!influencers.ContainsKey(ownerCulture))
+                influencers.Add(ownerCulture, ownerInfluence);
+            else
+                influencers[ownerCulture] += ownerInfluence;
 
             //calculate the influence cause by governors
             if (DynaCultureSettings.Instance.GovernorCultureInfluencePlayerSettlementOnly && DynaCultureUtils.IsPlayerOwner(settlement))

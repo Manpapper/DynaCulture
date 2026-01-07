@@ -29,7 +29,7 @@ namespace DynaCulture.Settings
         [SettingPropertyGroup("{=ieJye6ml8N}Gradual Assimilation")]
         public int AssimilationDelay { get; set; } = 45;
 
-        [SettingPropertyInteger("{=ieJye6ml19N}Owner Kingdom Influence Strength", 0, 50, HintText = "{=ieJye6ml14N}(Default 6) Extra influence for the owner of the settlement", Order = 1, RequireRestart = false)]
+        [SettingPropertyInteger("{=ieJye6ml19N}Owner Kingdom Influence Strength", 1, 50, HintText = "{=ieJye6ml14N}(Default 6) Extra influence for the owner of the settlement", Order = 1, RequireRestart = false)]
         [SettingPropertyGroup("{=ieJye6ml20N}Culture Influence")]
         public int OwnerInfluenceStrength { get; set; } = 6;
 
