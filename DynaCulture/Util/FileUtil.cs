@@ -53,6 +53,19 @@ namespace DynaCulture.Util
             Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
             characterName = r.Replace(characterName, "");
 
+            // Scope the culture save file to the specific campaign (UniqueGameId), not just
+            // the hero name. Keying on the name alone means reusing a character name across
+            // campaigns loads the previous campaign's culture state into the new one (and each
+            // save clobbers the other's file). UniqueGameId is a per-campaign id and fixes that.
+            // It can be null/empty on very old saves (the engine falls back to "oldSave"), so
+            // fall back to the original name-only key in that case to preserve prior behavior.
+            string campaignId = Campaign.Current?.UniqueGameId;
+            if (!string.IsNullOrEmpty(campaignId))
+            {
+                campaignId = r.Replace(campaignId, "");
+                return characterName + "_" + campaignId + "_CultureConfig.dat";
+            }
+
             return characterName + "_CultureConfig.dat";
         }
     }
