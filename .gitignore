@@ -341,3 +341,6 @@ healthchecksdb
 
 steam_appid.txt
 steam_workshop_uploader.txt
+# WSL-local headless build shim — do not commit (2026-09-02)
+/DynaCulture.Build.csproj
+/refs/
